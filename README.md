@@ -113,7 +113,7 @@ So for example if the API returned a different structure like this:
   "user": {
     "id": 1234,
     "email": {
-      "address": 'test@example.com'
+      "address": "test@example.com"
     }
   }
 }
