@@ -80,8 +80,7 @@ response from SoundCloud:
   "avatar_url": "http://i1.sndcdn.com/avatars-000001552142-pbw8yd-large.jpg?142a848",
   "country": "Germany",
   "full_name": "Johannes Wagener",
-  "city": "Berlin",
-  ...
+  "city": "Berlin"
 }
 ```
 
@@ -111,10 +110,10 @@ So for example if the API returned a different structure like this:
 
 ```json
 {
-  user: {
-    id: 1234,
-    email: {
-      address: 'test@example.com'
+  "user": {
+    "id": 1234,
+    "email": {
+      "address": 'test@example.com'
     }
   }
 }
