@@ -66,11 +66,11 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
     result.email = user_details[:email]
     result.email_valid = result.email.present? && SiteSetting.oauth2_email_verified
 
-    current_info = ::PluginStore.get("oauth2_basic", "oauth2_basic_user_#{user_details[:id]}")
+    current_info = ::PluginStore.get("oauth2_basic", "oauth2_basic_user_#{user_details[:user_id]}")
     if current_info
       result.user = User.where(id: current_info[:user_id]).first
     end
-    result.extra_data = { oauth2_basic_user_id: user_details[:id] }
+    result.extra_data = { oauth2_basic_user_id: user_details[:user_id] }
     result
   end
 
