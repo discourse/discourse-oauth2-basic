@@ -43,7 +43,7 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
 
   def fetch_user_details(token)
     user_json_url = SiteSetting.oauth2_user_json_url.sub(':token', token)
-    user_json = JSON.parse(open(user_json_url).read)
+    user_json = JSON.parse(open(user_json_url, 'Authorization' => "Bearer #{token}" ).read)
 
     result = {}
     if user_json.present?

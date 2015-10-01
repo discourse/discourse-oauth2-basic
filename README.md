@@ -65,6 +65,8 @@ https://api.soundcloud.com/me?oauth_token=:token`
 
 The part with `:token` tells Discourse that it needs to replace that value
 with the authorization token it received when the authentication completed.
+Discourse will also add the `Authorization: Bearer` HTTP header with the
+token in case your API uses that instead.
 
 There is one last step to complete. We need to tell Discourse what
 attributes are available in the JSON it received. Here's a sample
