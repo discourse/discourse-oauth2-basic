@@ -60,7 +60,7 @@ To configure this on Discourse, we need to set the value of the
 `oauth2_user_json_url` setting. In this case, we'll input the value of:
 
 ```
-https://api.soundcloud.com/me?oauth_token=:token`
+https://api.soundcloud.com/me?oauth_token=:token
 ```
 
 The part with `:token` tells Discourse that it needs to replace that value
