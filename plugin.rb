@@ -23,6 +23,15 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
                       }
   end
 
+  def build_access_token
+    options.token_params.merge!(:headers => {'Authorization' => basic_auth_header })
+    super
+  end
+
+  def basic_auth_header
+    "Basic " + Base64.strict_encode64("#{SiteSetting.oauth2_client_id}:#{SiteSetting.oauth2_client_secret}")
+  end
+
   def walk_path(fragment, segments)
     first_seg = segments[0]
     return if first_seg.blank? || fragment.blank?
