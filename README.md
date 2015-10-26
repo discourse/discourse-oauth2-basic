@@ -125,6 +125,12 @@ You could use `user.id` for the `oauth2_json_user_id_path` and `user.email.addre
 
 Good luck setting up custom OAuth2 on your Discourse!
 
+### Issues
+
+Please use [this topic on meta](https://meta.discourse.org/t/oauth2-basic-support/33879) to discuss
+issues with the plugin, including bugs and feature reqests.
+
+
 ### License
 
 MIT
