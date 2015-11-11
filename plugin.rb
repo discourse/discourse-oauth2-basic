@@ -20,12 +20,8 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
                           authorize_url: SiteSetting.oauth2_authorize_url,
                           token_url: SiteSetting.oauth2_token_url
                         }
+                        opts[:token_params] = {headers: {'Authorization' => basic_auth_header }}
                       }
-  end
-
-  def build_access_token
-    options.token_params.merge!(:headers => {'Authorization' => basic_auth_header })
-    super
   end
 
   def basic_auth_header
