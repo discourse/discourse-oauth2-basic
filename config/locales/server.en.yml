@@ -11,4 +11,5 @@ en:
     oauth2_json_name_path: "Path in the OAuth2 User JSON to the user's full: user.name.full"
     oauth2_json_email_path: "Path in the OAuth2 User JSON to the user's email: user.email.primary"
     oauth2_email_verified: "Check this if the OAuth2 site has verified the email"
+    oauth2_send_auth_header: "Send the token as an HTTP Authorization header"
 

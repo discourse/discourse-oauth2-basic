@@ -1,6 +1,6 @@
 # name: discourse-oauth2-basic
 # about: Generic OAuth2 Plugin
-# version: 0.1
+# version: 0.2
 # authors: Robin Ward
 
 require_dependency 'auth/oauth2_authenticator.rb'
@@ -20,7 +20,9 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
                           authorize_url: SiteSetting.oauth2_authorize_url,
                           token_url: SiteSetting.oauth2_token_url
                         }
-                        opts[:token_params] = {headers: {'Authorization' => basic_auth_header }}
+                        if SiteSetting.oauth2_send_auth_header?
+                          opts[:token_params] = {headers: {'Authorization' => basic_auth_header }}
+                        end
                       }
   end
 
