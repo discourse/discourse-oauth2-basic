@@ -14,6 +14,9 @@ login:
   oauth2_email_verified: false
   oauth2_send_auth_header: true
   oauth2_debug_auth: false
+  oauth2_authorize_options:
+    default: 'scope'
+    type: list
   oauth2_button_title:
     default: 'with OAuth2'
     client: true
