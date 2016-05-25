@@ -48,9 +48,16 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
     end
   end
 
+  def debug(info)
+    Rails.logger.warn("OAuth2 Debugging: #{info}") if SiteSetting.oauth2_debug_auth
+  end
+
   def fetch_user_details(token)
     user_json_url = SiteSetting.oauth2_user_json_url.sub(':token', token)
+    debug("user_json_url: #{user_json_url}")
     user_json = JSON.parse(open(user_json_url, 'Authorization' => "Bearer #{token}" ).read)
+
+    debug("user_json: #{user_json}")
 
     result = {}
     if user_json.present?
@@ -64,6 +71,7 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
   end
 
   def after_authenticate(auth)
+    debug("auth response \n\n#{auth}")
     result = Auth::Result.new
     token = auth['credentials']['token']
     user_details = fetch_user_details(token)
