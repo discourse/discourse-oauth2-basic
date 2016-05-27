@@ -67,7 +67,7 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
   end
 
   def fetch_user_details(token, id)
-    user_json_url = SiteSetting.oauth2_user_json_url.sub(':token', token).sub(':id', id)
+    user_json_url = SiteSetting.oauth2_user_json_url.sub(':token', token.to_s).sub(':id', id.to_s)
 
     log("user_json_url: #{user_json_url}")
 
@@ -87,11 +87,11 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
   end
 
   def after_authenticate(auth)
-    log("after_authenticate response: \n\ncreds: #{auth['credentials'].to_hash}\ninfo: #{auth['info'].to_hash}\nextra: #{auth['extra'].to_hash}\nid: #{auth[:id]}")
+    log("after_authenticate response: \n\ncreds: #{auth['credentials'].to_hash}\ninfo: #{auth['info'].to_hash}\nextra: #{auth['extra'].to_hash}")
 
     result = Auth::Result.new
     token = auth['credentials']['token']
-    user_details = fetch_user_details(token, auth[:id])
+    user_details = fetch_user_details(token, auth['info'][:id])
 
     result.name = user_details[:name]
     result.username = user_details[:username]
