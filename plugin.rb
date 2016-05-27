@@ -7,9 +7,21 @@ require_dependency 'auth/oauth2_authenticator.rb'
 
 enabled_site_setting :oauth2_enabled
 
+class ::OmniAuth::Strategies::Oauth2Basic < ::OmniAuth::Strategies::OAuth2
+  def callback_url
+    "https://discuss.jibo.com/auth/oauth2_basic/callback"
+  end
+  option :name, "oauth2_basic"
+  info do
+    {
+      id: access_token['id']
+    }
+  end
+end
+
 class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
   def register_middleware(omniauth)
-    omniauth.provider :oauth2,
+    omniauth.provider :oauth2_basic,
                       name: 'oauth2_basic',
                       setup: lambda {|env|
                         opts = env['omniauth.strategy'].options
@@ -54,8 +66,8 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
     Rails.logger.warn("OAuth2 Debugging: #{info}") if SiteSetting.oauth2_debug_auth
   end
 
-  def fetch_user_details(token)
-    user_json_url = SiteSetting.oauth2_user_json_url.sub(':token', token)
+  def fetch_user_details(token, id)
+    user_json_url = SiteSetting.oauth2_user_json_url.sub(':token', token).sub(':id', id)
 
     log("user_json_url: #{user_json_url}")
 
@@ -79,7 +91,7 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
 
     result = Auth::Result.new
     token = auth['credentials']['token']
-    user_details = fetch_user_details(token)
+    user_details = fetch_user_details(token, auth[:id])
 
     result.name = user_details[:name]
     result.username = user_details[:username]
