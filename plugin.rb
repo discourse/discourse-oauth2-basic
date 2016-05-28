@@ -8,9 +8,6 @@ require_dependency 'auth/oauth2_authenticator.rb'
 enabled_site_setting :oauth2_enabled
 
 class ::OmniAuth::Strategies::Oauth2Basic < ::OmniAuth::Strategies::OAuth2
-  def callback_url
-    "https://discuss.jibo.com/auth/oauth2_basic/callback"
-  end
   option :name, "oauth2_basic"
   info do
     {
