@@ -95,7 +95,7 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
     result.email = user_details[:email]
     result.email_valid = result.email.present? && SiteSetting.oauth2_email_verified?
 
-    current_info = ::PluginStore.get("oauth2_basic", "oauth2_basic_user_#{user_details[:user_id]}")
+    current_info = ::PluginStore.get("oauth2_basic", "oauth2_basic_#{user_details[:user_id]}")
     if current_info
       result.user = User.where(id: current_info[:user_id]).first
     elsif SiteSetting.oauth2_email_verified?
@@ -110,7 +110,7 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
   end
 
   def after_create_account(user, auth)
-    ::PluginStore.set("oauth2_basic", "oauth2_basic_user_#{auth[:extra_data][:oauth2_basic_user_id]}", {user_id: user.id })
+    ::PluginStore.set("oauth2_basic", "oauth2_basic_#{auth[:extra_data][:oauth2_basic_user_id]}", {user_id: user.id })
   end
 end
 
