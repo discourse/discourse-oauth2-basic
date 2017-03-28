@@ -14,6 +14,10 @@ class ::OmniAuth::Strategies::Oauth2Basic < ::OmniAuth::Strategies::OAuth2
       id: access_token['id']
     }
   end
+
+  def callback_url
+    full_host + script_name + callback_path
+  end
 end
 
 class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
