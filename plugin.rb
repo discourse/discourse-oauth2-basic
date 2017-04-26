@@ -2,6 +2,7 @@
 # about: Generic OAuth2 Plugin
 # version: 0.2
 # authors: Robin Ward
+# url: https://github.com/discourse/discourse-oauth2-basic
 
 require_dependency 'auth/oauth2_authenticator.rb'
 
