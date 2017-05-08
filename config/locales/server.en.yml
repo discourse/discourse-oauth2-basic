@@ -14,4 +14,5 @@ en:
     oauth2_send_auth_header: "Send the token as an HTTP Authorization header"
     oauth2_debug_auth: "Include rich debugging information in your logs"
     oauth2_authorize_options: "When authorizing request these options"
+    oauth2_ignore_state: "Don't validate the state parameter. This will be removed shortly!"
 

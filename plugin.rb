@@ -29,7 +29,7 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
                         opts = env['omniauth.strategy'].options
                         opts[:client_id] = SiteSetting.oauth2_client_id
                         opts[:client_secret] = SiteSetting.oauth2_client_secret
-                        opts[:provider_ignores_state] = true
+                        opts[:provider_ignores_state] = SiteSetting.oauth2_ignore_state
                         opts[:client_options] = {
                           authorize_url: SiteSetting.oauth2_authorize_url,
                           token_url: SiteSetting.oauth2_token_url
