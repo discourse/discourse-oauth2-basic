@@ -14,7 +14,6 @@ login:
   oauth2_email_verified: false
   oauth2_send_auth_header: true
   oauth2_debug_auth: false
-  oauth2_ignore_state: true
   oauth2_authorize_options:
     default: 'scope'
     type: list
