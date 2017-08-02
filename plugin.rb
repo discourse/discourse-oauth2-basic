@@ -25,7 +25,7 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
   def register_middleware(omniauth)
     omniauth.provider :oauth2_basic,
                       name: 'oauth2_basic',
-                      setup: lambda {|env|
+                      setup: lambda { |env|
                         opts = env['omniauth.strategy'].options
                         opts[:client_id] = SiteSetting.oauth2_client_id
                         opts[:client_secret] = SiteSetting.oauth2_client_secret
@@ -37,7 +37,7 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
                         opts[:authorize_options] = SiteSetting.oauth2_authorize_options.split("|").map(&:to_sym)
 
                         if SiteSetting.oauth2_send_auth_header?
-                          opts[:token_params] = {headers: {'Authorization' => basic_auth_header }}
+                          opts[:token_params] = { headers: { 'Authorization' => basic_auth_header } }
                         end
                       }
   end
@@ -73,7 +73,7 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
 
     log("user_json_url: #{user_json_url}")
 
-    user_json = JSON.parse(open(user_json_url, 'Authorization' => "Bearer #{token}" ).read)
+    user_json = JSON.parse(open(user_json_url, 'Authorization' => "Bearer #{token}").read)
 
     log("user_json: #{user_json}")
 
@@ -106,7 +106,7 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
     elsif SiteSetting.oauth2_email_verified?
       result.user = User.where(email: Email.downcase(result.email)).first
       if result.user && user_details[:user_id]
-        ::PluginStore.set("oauth2_basic", "oauth2_basic_user_#{user_details[:user_id]}", {user_id: result.user.id})
+        ::PluginStore.set("oauth2_basic", "oauth2_basic_user_#{user_details[:user_id]}", user_id: result.user.id)
       end
     end
 
@@ -115,7 +115,7 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
   end
 
   def after_create_account(user, auth)
-    ::PluginStore.set("oauth2_basic", "oauth2_basic_user_#{auth[:extra_data][:oauth2_basic_user_id]}", {user_id: user.id })
+    ::PluginStore.set("oauth2_basic", "oauth2_basic_user_#{auth[:extra_data][:oauth2_basic_user_id]}", user_id: user.id)
   end
 end
 
