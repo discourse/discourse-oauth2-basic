@@ -5,4 +5,9 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-pl_PL: {}
+pl_PL:
+  site_settings:
+    oauth2_enabled: "Niestandardowy OAuth2 jest włączony"
+    oauth2_authorize_url: 'Adres URL autoryzacji dla OAuth2'
+    oauth2_token_url: 'Token URL dla OAuth2'
+    oauth2_email_verified: "Sprawdź to, czy witryna OAuth2 zweryfikowała adres e-mail"

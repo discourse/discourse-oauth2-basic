@@ -5,4 +5,19 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-de: {}
+de:
+  site_settings:
+    oauth2_enabled: "Benutzerdefiniertes OAuth2 ist aktiviert"
+    oauth2_client_id: 'Kundennummer für benutzerdefiniertes OAuth2'
+    oauth2_client_secret: 'Kundengeheimnis für benutzerdefiniertes OAuth2'
+    oauth2_authorize_url: 'Autorisierungs-URL für OAuth2'
+    oauth2_token_url: 'Token-URL für OAuth2'
+    oauth2_user_json_url: 'URL, um Benutzer-JSON für OAuth2 abzrufen (beachte, dass wir :id mit der ID ersetzen, die vom OAuth-Aufruf geliefert wird, und :token mit der Token-ID)'
+    oauth2_json_user_id_path: 'Pfad im OAuth2-Benutzer-JSON zur Benutzer-ID. Beispiel: user.id'
+    oauth2_json_username_path: 'Pfad im OAuth2-Benutzer-JSON zum Benutzername. Beispiel: user.username'
+    oauth2_json_name_path: "Pfad im OAuth2-Benutzer-JSON zum vollständigen Namen des Benutzers. Beispiel: user.name.full"
+    oauth2_json_email_path: "Pfad im OAuth2-Benutzer-JSON zur E-Mail-Adresse des Benutzers. Beispiel: user.email.primary"
+    oauth2_email_verified: "Prüfe, ob die OAuth2-Seite die E-Mail-Adresse verifiziert hat"
+    oauth2_send_auth_header: "Schicke das Token als HTTP-Authorization-Kopfzeile"
+    oauth2_debug_auth: "Ausführliche Informationen zur Fehlerbehebung in Protokolle aufnhemen"
+    oauth2_authorize_options: "Bei der Autorisierung folgende Optionen anfordern"
