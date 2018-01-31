@@ -5,4 +5,19 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-ur: {}
+ur:
+  site_settings:
+    oauth2_enabled: "اپنی مرضی کا OAuth2 فعال ہے"
+    oauth2_client_id: 'اپنی مرضی کے OAuth2 کیلئے کلائنٹ ائی ڈی'
+    oauth2_client_secret: 'اپنی مرضی کے OAuth2 کیلئے کلائنٹ سیکرٹ'
+    oauth2_authorize_url: 'OAuth2 کے لئے اَوتھرٰیزیشن URL'
+    oauth2_token_url: 'OAuth2 کیلئے ٹوکن URL'
+    oauth2_user_json_url: 'OAuth2 کیلئے صارف کا JSON حاصل کرنے کا URL (نوٹ کریں کہ ہم :id کو OAuth کال سے حاصل ہوئی id اور :token کو ٹوکن id سے تبدیل کر دیتے ہیں)'
+    oauth2_json_user_id_path: 'OAuth2 صارف JSON میں صارف آئی ڈی کا پاتھ۔ مثال: user.id'
+    oauth2_json_username_path: 'OAuth2 صارف JSON میں صارف نام کا پاتھ۔ مثال: user.username'
+    oauth2_json_name_path: "OAuth2 صارف JSON میں صارف کے پورے نام کا پاتھ۔ مثال: user.name.full"
+    oauth2_json_email_path: "OAuth2 صارف JSON میں صارف ای مَیل کا پاتھ۔ مثال: user.email.primary"
+    oauth2_email_verified: "اِس کو چیک لگائیں اگر OAuth2 سائٹ نے ای مَیل کی توثیق کی ہوئی ہے"
+    oauth2_send_auth_header: "ٹوکن کو HTTP اَوتھرٰیزیشن ہیڈر کے طور پر بھیجیں"
+    oauth2_debug_auth: "اپنے لاگز میں رِچ ڈیبگنگ معلومات شامل کریں"
+    oauth2_authorize_options: "جب اَوتھرٰیز کیا جا رہا ہو تو اِن اختیارات کی درخواست کریں"
