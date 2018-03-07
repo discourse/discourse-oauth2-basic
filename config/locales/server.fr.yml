@@ -5,4 +5,19 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-fr: {}
+fr:
+  site_settings:
+    oauth2_enabled: "OAuth2 personnalisé est activé"
+    oauth2_client_id: 'Client ID pour OAuth2 personnalisé'
+    oauth2_client_secret: 'Client secret pour OAuth2 personnalisé'
+    oauth2_authorize_url: 'Authorization URL pour OAuth2'
+    oauth2_token_url: 'Token URL pour OAuth2'
+    oauth2_user_json_url: 'URL pour récupérer JSON utilisateur pour OAuth2 (noter que :id sera remplacé avec l''id retourné par l''appel OAuth et :token avec l''id token)'
+    oauth2_json_user_id_path: 'Chemin d''accès dans le JSON Utilisateur OAuth2 vers l''id utilisateur. P.ex: user.id'
+    oauth2_json_username_path: 'Chemin d''accès dans le JSON Utilisateur OAuth2 vers le nom d''utilisateur. P.ex: user.username'
+    oauth2_json_name_path: "Chemin d'accès dans le JSON Utilisateur OAuth2 vers le nom complet. P.ex: user.name.full"
+    oauth2_json_email_path: "Chemin d'accès dans le JSON Utilisateur OAuth2 vers son courriel. P.ex: user.email.primary"
+    oauth2_email_verified: "Cocher ceci si le site OAuth2 a vérifié ce courriel"
+    oauth2_send_auth_header: "Envoyer le token sous forme de HTTP Authorization header"
+    oauth2_debug_auth: "Inclure des informations de debug étendues dans vos logs"
+    oauth2_authorize_options: "Lors de l'authorisation demander ces options"
