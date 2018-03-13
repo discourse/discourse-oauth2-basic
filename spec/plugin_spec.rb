@@ -29,13 +29,20 @@ describe OAuth2BasicAuthenticator do
     it 'finds user by email' do
       authenticator = OAuth2BasicAuthenticator.new('oauth2_basic')
       user = Fabricate(:user)
-      authenticator.expects(:fetch_user_details).returns(email: user.email)
       SiteSetting.oauth2_email_verified = true
-      auth = { 'credentials' => { 'token': 'token' },
-               'info' => { id: 'id' },
-               'extra' => {} }
+      auth = { credentials: { token: 'token' }, uid: 'id', provider: "oauth2_basic", info: { email: user.email }, extra: {} }
 
-      result = authenticator.after_authenticate(auth)
+      result = {}
+      expect {
+        result = authenticator.after_authenticate(auth)
+      }.to change { Oauth2UserInfo.count }.by(1)
+
+      expect(result.user).to eq(user)
+      expect(Oauth2UserInfo.find_by(uid: 'id', provider: "oauth2_basic").user_id).to eq(user.id)
+
+      expect {
+        result = authenticator.after_authenticate(auth)
+      }.to change { Oauth2UserInfo.count }.by(0)
 
       expect(result.user).to eq(user)
     end
