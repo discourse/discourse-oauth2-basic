@@ -1,6 +1,6 @@
 # name: discourse-oauth2-basic
 # about: Generic OAuth2 Plugin
-# version: 0.2
+# version: 0.3
 # authors: Robin Ward
 # url: https://github.com/discourse/discourse-oauth2-basic
 
