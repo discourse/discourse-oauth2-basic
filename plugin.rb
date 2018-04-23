@@ -1,6 +1,6 @@
 # name: discourse-oauth2-basic
 # about: Generic OAuth2 Plugin
-# version: 0.2
+# version: 0.3
 # authors: Robin Ward
 # url: https://github.com/discourse/discourse-oauth2-basic
 
@@ -32,7 +32,8 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
                         opts[:provider_ignores_state] = false
                         opts[:client_options] = {
                           authorize_url: SiteSetting.oauth2_authorize_url,
-                          token_url: SiteSetting.oauth2_token_url
+                          token_url: SiteSetting.oauth2_token_url,
+                          token_method: SiteSetting.oauth2_token_url_method.downcase.to_sym
                         }
                         opts[:authorize_options] = SiteSetting.oauth2_authorize_options.split("|").map(&:to_sym)
 
@@ -70,10 +71,21 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
 
   def fetch_user_details(token, id)
     user_json_url = SiteSetting.oauth2_user_json_url.sub(':token', token.to_s).sub(':id', id.to_s)
+    user_json_method = SiteSetting.oauth2_user_json_url_method
 
-    log("user_json_url: #{user_json_url}")
+    log("user_json_url: #{user_json_method} #{user_json_url}")
 
-    user_json = JSON.parse(open(user_json_url, 'Authorization' => "Bearer #{token}").read)
+    bearer_token = "Bearer #{token}"
+    user_json_response =
+      if user_json_method.downcase.to_sym == :post
+        Net::HTTP
+          .post_form(URI(user_json_url), { 'Authorization' => bearer_token })
+          .body
+      else
+        open(user_json_url, 'Authorization' => bearer_token).read
+      end
+
+    user_json = JSON.parse(user_json_response)
 
     log("user_json: #{user_json}")
 

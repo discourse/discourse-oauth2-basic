@@ -5,7 +5,9 @@ en:
     oauth2_client_secret: 'Client Secret for custom OAuth2'
     oauth2_authorize_url: 'Authorization URL for OAuth2'
     oauth2_token_url: 'Token URL for OAuth2'
+    oauth2_token_url_method: 'Method used to fetch the Token URL'
     oauth2_user_json_url: 'URL to fetch user JSON for OAuth2 (note we replace :id with the id returned by OAuth call and :token with the token id)'
+    oauth2_user_json_url_method: 'Method used to fetch the user JSON URL'
     oauth2_json_user_id_path: 'Path in the OAuth2 User JSON to the user id. eg: user.id'
     oauth2_json_username_path: 'Path in the OAuth2 User JSON to the username. eg: user.username'
     oauth2_json_name_path: "Path in the OAuth2 User JSON to the user's full: user.name.full"
