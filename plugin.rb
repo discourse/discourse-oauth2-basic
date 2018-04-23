@@ -4,9 +4,6 @@
 # authors: Robin Ward
 # url: https://github.com/discourse/discourse-oauth2-basic
 
-require 'uri'
-require 'net/http'
-
 require_dependency 'auth/oauth2_authenticator.rb'
 
 enabled_site_setting :oauth2_enabled
