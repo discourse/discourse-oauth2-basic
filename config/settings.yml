@@ -8,7 +8,7 @@ login:
   oauth2_token_url: ''
   oauth2_user_json_url: ''
   oauth2_token_url_method:
-    default: 'GET'
+    default: 'POST'
     type: enum
     choices:
       - GET
