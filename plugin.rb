@@ -50,8 +50,12 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
   def walk_path(fragment, segments)
     first_seg = segments[0]
     return if first_seg.blank? || fragment.blank?
-    return nil unless fragment.is_a?(Hash)
-    deref = fragment[first_seg] || fragment[first_seg.to_sym]
+    return nil unless fragment.is_a?(Hash) || fragment.is_a?(Array)
+    if fragment.is_a?(Hash)
+      deref = fragment[first_seg] || fragment[first_seg.to_sym]
+    else
+      deref = fragment[0] # Take just the first array for now, maybe later we can teach it to walk the array if we need to
+    end
 
     return (deref.blank? || segments.size == 1) ? deref : walk_path(deref, segments[1..-1])
   end

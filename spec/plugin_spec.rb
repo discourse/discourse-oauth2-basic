@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'json'
 
 # This is ugly... but it works!
 # Need to load plugin.rb to avoid:
@@ -40,4 +41,32 @@ describe OAuth2BasicAuthenticator do
       expect(result.user).to eq(user)
     end
   end
+
+  it 'can walk json' do
+    authenticator = OAuth2BasicAuthenticator.new('oauth2_basic')
+    json_string = '{"user":{"id":1234,"email":{"address":"test@example.com"}}}'
+    SiteSetting.oauth2_json_email_path = 'user.email.address'
+    result = authenticator.json_walk({}, JSON.parse(json_string), :email)
+
+    expect(result).to eq "test@example.com"
+  end
+
+  it 'can walk json that contains an array' do
+    authenticator = OAuth2BasicAuthenticator.new('oauth2_basic')
+    json_string = '{"email":"test@example.com","identities":[{"user_id":"123456789","provider":"auth0","isSocial":false}]}'
+    SiteSetting.oauth2_json_user_id_path = 'identities.[].user_id'
+    result = authenticator.json_walk({}, JSON.parse(json_string), :user_id)
+
+    expect(result).to eq "123456789"
+  end
+
+  it 'can walk json and handle an empty array' do
+    authenticator = OAuth2BasicAuthenticator.new('oauth2_basic')
+    json_string = '{"email":"test@example.com","identities":[]}'
+    SiteSetting.oauth2_json_user_id_path = 'identities.[].user_id'
+    result = authenticator.json_walk({}, JSON.parse(json_string), :user_id)
+
+    expect(result).to eq nil
+  end
+
 end
