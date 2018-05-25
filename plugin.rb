@@ -40,6 +40,9 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
                         if SiteSetting.oauth2_send_auth_header?
                           opts[:token_params] = { headers: { 'Authorization' => basic_auth_header } }
                         end
+                        unless SiteSetting.oauth2_scope.blank?
+                          opts[:scope] = SiteSetting.oauth2_scope
+                        end
                       }
   end
 

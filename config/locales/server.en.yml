@@ -12,8 +12,11 @@ en:
     oauth2_json_username_path: 'Path in the OAuth2 User JSON to the username. eg: user.username'
     oauth2_json_name_path: "Path in the OAuth2 User JSON to the user's full: user.name.full"
     oauth2_json_email_path: "Path in the OAuth2 User JSON to the user's email: user.email.primary"
+    oauth2_json_avatar_path: "Path in the Oauth2 User JSON to the user's avatar: user.avatar_url"
     oauth2_email_verified: "Check this if the OAuth2 site has verified the email"
     oauth2_send_auth_header: "Send the token as an HTTP Authorization header"
     oauth2_debug_auth: "Include rich debugging information in your logs"
     oauth2_authorize_options: "When authorizing request these options"
+    oauth2_scope: "When authorizing request this scope"
+    oauth2_button_title: "The text for the OAuth2 button"
 

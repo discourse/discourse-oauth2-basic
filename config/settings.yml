@@ -30,6 +30,7 @@ login:
   oauth2_authorize_options:
     default: 'scope'
     type: list
+  oauth2_scope: ''
   oauth2_button_title:
     default: 'with OAuth2'
     client: true
