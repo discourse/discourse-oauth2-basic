@@ -130,6 +130,12 @@ Good luck setting up custom OAuth2 on your Discourse!
 Please use [this topic on meta](https://meta.discourse.org/t/oauth2-basic-support/33879) to discuss
 issues with the plugin, including bugs and feature reqests.
 
+### How to run tests
+
+Make sure the plugin has been installed, then from the discourse directory run:
+
+    LOAD_PLUGINS=1 bundle exec rspec plugins/discourse-oauth2-basic/spec/plugin_spec.rb
+
 
 ### License
 
