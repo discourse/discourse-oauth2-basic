@@ -99,6 +99,7 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
       json_walk(result, user_json, :username)
       json_walk(result, user_json, :name)
       json_walk(result, user_json, :email)
+      json_walk(result, user_json, :avatar)
     end
 
     result
@@ -115,6 +116,7 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
     result.username = user_details[:username]
     result.email = user_details[:email]
     result.email_valid = result.email.present? && SiteSetting.oauth2_email_verified?
+    avatar_url = user_details[:avatar]
 
     current_info = ::PluginStore.get("oauth2_basic", "oauth2_basic_user_#{user_details[:user_id]}")
     if current_info
@@ -125,6 +127,12 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
         ::PluginStore.set("oauth2_basic", "oauth2_basic_user_#{user_details[:user_id]}", user_id: result.user.id)
       end
     end
+
+    Jobs.enqueue(:download_avatar_from_url,
+      url: avatar_url,
+      user_id: result.user.id,
+      override_gravatar: SiteSetting.sso_overrides_avatar
+    ) if result.user && avatar_url.present?
 
     result.extra_data = { oauth2_basic_user_id: user_details[:user_id] }
     result
