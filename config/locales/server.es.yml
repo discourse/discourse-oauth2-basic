@@ -7,17 +7,22 @@
 
 es:
   site_settings:
-    oauth2_enabled: "Habilitar OAuth2 personalizado"
-    oauth2_client_id: 'ID de cliente del OAuth2'
-    oauth2_client_secret: 'Secreto de cliente del OAuth2'
-    oauth2_authorize_url: 'URL de autorización del OAuth2'
-    oauth2_token_url: 'Token de URL del OAuth2'
-    oauth2_user_json_url: 'URL de la que obtener el JSON del usuario para OAuth2 (:id se sustituirá con la id devuelta por OAuth y :token con la id del token)'
-    oauth2_json_user_id_path: 'Ruta en el JSON de usuario de OAuth2 para obtener la id del usuario. Ej.: user.id'
-    oauth2_json_username_path: 'Ruta en el JSON de usuario de OAuth2 para obtener el nombre de usuario. Ej.: user.username'
-    oauth2_json_name_path: "Ruta en el JSON de usuario de OAuth2 para obtener el nombre completo del usuario: Ej.: user.name.full"
-    oauth2_json_email_path: "Ruta en el JSON de usuario de OAuth2 para obtener el email. Ej.: user.email.primary"
-    oauth2_email_verified: "Marca esta opción si el sitio OAuth2 verifica los correos"
-    oauth2_send_auth_header: "Enviar el token como HTTP Authorization header"
-    oauth2_debug_auth: "Incluir información detallada de debug en los logs"
-    oauth2_authorize_options: "Al autorizar, solicitar estas opciones"
+    oauth2_enabled: "Custom OAuth2 está habilitado"
+    oauth2_client_id: 'Client ID para custom OAuth2'
+    oauth2_client_secret: 'Client Secret para custom OAuth2'
+    oauth2_authorize_url: 'URL de Autorización para OAuth2'
+    oauth2_token_url: 'Token URL para OAuth2'
+    oauth2_token_url_method: 'Método utilizado para obtener la URL del token'
+    oauth2_user_json_url: 'URL para buscar el usuario JSON para OAuth2 (nota que reemplazamos :id con el id devuelto por la llamada OAuth y :token con el token id)'
+    oauth2_user_json_url_method: 'Método utilizado para obtener la URL JSON del usuario'
+    oauth2_json_user_id_path: 'Path en el OAuth2 User JSON para el user id. Ejemplo: user.id'
+    oauth2_json_username_path: 'Path en el OAuth2 User JSON para el username. Ejemplo: user.username'
+    oauth2_json_name_path: "Path en el OAuth2 User JSON para el user's full: user.name.full"
+    oauth2_json_email_path: "Path en el OAuth2 User JSON para el user's email: user.email.primary"
+    oauth2_json_avatar_path: "Path en el usuario JSON Oauth2 para el avatar del usuario: user.avatar_url"
+    oauth2_email_verified: "Marque esto si el sitio OAuth2 ha verificado el correo electrónico"
+    oauth2_send_auth_header: "Enviar el token como un encabezado de Autorización HTTP"
+    oauth2_debug_auth: "Incluir abundante información de depuración en tus registros"
+    oauth2_authorize_options: "Al autorizar solicitar estas opciones"
+    oauth2_scope: "Al autorizar solicitar este alcance"
+    oauth2_button_title: "El texto para el botón OAuth2"
