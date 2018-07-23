@@ -19,4 +19,4 @@ en:
     oauth2_authorize_options: "When authorizing request these options"
     oauth2_scope: "When authorizing request this scope"
     oauth2_button_title: "The text for the OAuth2 button"
-
+    oauth2_full_screen_login: "Use main browser window instead of popup for login"
