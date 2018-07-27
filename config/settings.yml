@@ -34,3 +34,6 @@ login:
   oauth2_button_title:
     default: 'with OAuth2'
     client: true
+  oauth2_full_screen_login:
+    default: false
+    client: true
