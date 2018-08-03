@@ -144,6 +144,10 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
   def after_create_account(user, auth)
     ::PluginStore.set("oauth2_basic", "oauth2_basic_user_#{auth[:extra_data][:oauth2_basic_user_id]}", user_id: user.id)
   end
+
+  def enabled?
+    SiteSetting.oauth2_enabled
+  end
 end
 
 auth_provider title_setting: "oauth2_button_title",
