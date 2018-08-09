@@ -3,6 +3,7 @@
 # version: 0.3
 # authors: Robin Ward
 # url: https://github.com/discourse/discourse-oauth2-basic
+require 'uri'
 
 require_dependency 'auth/oauth2_authenticator.rb'
 
@@ -46,7 +47,9 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
   end
 
   def basic_auth_header
-    "Basic " + Base64.strict_encode64("#{SiteSetting.oauth2_client_id}:#{SiteSetting.oauth2_client_secret}")
+    client_id_urlencoded = URI::encode_www_form_component(SiteSetting.oauth2_client_id)
+    client_secret_urlencoded = URI::encode_www_form_component(SiteSetting.oauth2_client_secret)
+    return "Basic " + Base64.strict_encode64("#{client_id_urlencoded}:#{client_secret_urlencoded}")
   end
 
   def walk_path(fragment, segments)
