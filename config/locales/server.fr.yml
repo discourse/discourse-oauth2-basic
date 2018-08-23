@@ -19,7 +19,11 @@ fr:
     oauth2_json_username_path: 'Chemin d''accès dans le JSON Utilisateur OAuth2 vers le nom d''utilisateur. P.ex: user.username'
     oauth2_json_name_path: "Chemin d'accès dans le JSON Utilisateur OAuth2 vers le nom complet. P.ex: user.name.full"
     oauth2_json_email_path: "Chemin d'accès dans le JSON Utilisateur OAuth2 vers son courriel. P.ex: user.email.primary"
+    oauth2_json_avatar_path: "Chemin d'accès dans le JSON Utilisateur OAuth2 vers l'avatar de l'utilisateur: user.avatar_url"
     oauth2_email_verified: "Cocher ceci si le site OAuth2 a vérifié ce courriel"
     oauth2_send_auth_header: "Envoyer le token sous forme de HTTP Authorization header"
     oauth2_debug_auth: "Inclure des informations de debug étendues dans vos logs"
     oauth2_authorize_options: "Lors de l'authorisation demander ces options"
+    oauth2_scope: "Lors de l'authorisation demander ce champ d'application (scope)"
+    oauth2_button_title: "Le texte pour le bouton OAuth2"
+    oauth2_full_screen_login: "Utiliser fenêtre de navigation principale au lieu d'un popup pour la connexion"

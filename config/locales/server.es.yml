@@ -26,3 +26,4 @@ es:
     oauth2_authorize_options: "Al autorizar solicitar estas opciones"
     oauth2_scope: "Al autorizar solicitar este alcance"
     oauth2_button_title: "El texto para el botón OAuth2"
+    oauth2_full_screen_login: "Use la ventana principal del navegador en lugar de la ventana emergente para iniciar sesión"

@@ -1,0 +1,16 @@
+# encoding: utf-8
+#
+# Never edit this file. It will be overwritten when translations are pulled from Transifex.
+#
+# To work with us on translations, join this project:
+# https://www.transifex.com/projects/p/discourse-org/
+
+sw:
+  site_settings:
+    oauth2_enabled: "Custom OAuth2 imeruhusiwa"
+    oauth2_client_id: 'Utambulisho wa Mteja kwa ajili ya OAuth2 binafsi'
+    oauth2_client_secret: 'Mteja wa Siri wa OAuth2 binafsi'
+    oauth2_token_url_method: 'Njia inayotumika kupata anwani ya Token'
+    oauth2_user_json_url_method: 'Njia inayotumika kupata anwani ya JSON ya mtumiaji'
+    oauth2_email_verified: "Angalia hii kama tovuti ya OAuth2 imethibitisha barua pepe"
+    oauth2_send_auth_header: "Tuma ujumbe kama Kichwa cha ruhusa cha HTTP"

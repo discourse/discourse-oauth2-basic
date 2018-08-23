@@ -26,3 +26,4 @@ de:
     oauth2_authorize_options: "Bei der Autorisierung folgende Optionen anfordern"
     oauth2_scope: "Bei der Autorisierung folgenden Scope anfordern"
     oauth2_button_title: "Der Text für die OAuth2 Schaltfläche"
+    oauth2_full_screen_login: "Verwende zum Anmelden das Hauptfenster des Browsers statt einem Popup-Fenster"

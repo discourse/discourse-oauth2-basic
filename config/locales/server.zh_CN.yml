@@ -8,3 +8,10 @@
 zh_CN:
   site_settings:
     oauth2_enabled: "自定义 OAuth2 已启用"
+    oauth2_client_id: '自定义OAuth2的客户端ID'
+    oauth2_client_secret: '自定义OAuth2的客户端密钥'
+    oauth2_authorize_url: 'Oauth2的授权URL'
+    oauth2_token_url: 'Oauth2的令牌URL'
+    oauth2_token_url_method: '获取令牌URL的模式'
+    oauth2_user_json_url_method: '用于获取用户JSON URL的模式'
+    oauth2_button_title: "OAuth2按钮显示的文字"
