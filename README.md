@@ -123,6 +123,31 @@ So for example if the API returned a different structure like this:
 
 You could use `user.id` for the `oauth2_json_user_id_path` and `user.email.address` for `oauth2_json_email_path`.
 
+## Part 3: Test it with Google OAuth 2.0 Server
+
+To test this plugin in your local dev environment you can use Google OAuth 2.0 Server. Follow [this guide](https://support.google.com/cloud/answer/6158849?hl=en) to create new OAuth client id & secret.
+
+* While creating it choose "Web application" as "Application type".
+* Add `http://localhost:3000` in "Authorized JavaScript origins" and `http://localhost:3000/auth/oauth2_basic/callback` in "Authorized redirect URIs" fields.
+* Then add following site settings in your admin panel.
+```json
+{
+  "oauth2_enabled": true,
+  "oauth2_client_id": "YOUR_PROJECT_CLIENT_ID",
+  "oauth2_client_secret": "YOUR_PROJECT_CLIENT_SECRET",
+  "oauth2_authorize_url": "https://accounts.google.com/o/oauth2/auth",
+  "oauth2_token_url": "https://www.googleapis.com/oauth2/v3/token",
+  "oauth2_user_json_url": "https://www.googleapis.com/userinfo/v2/me",
+  "oauth2_json_user_id_path": "id",
+  "oauth2_json_user_name_path": "name",
+  "oauth2_json_user_email_path": "email",
+  "oauth2_json_user_avatar_path": "picture",
+  "oauth2_email_verified": true,
+  "oauth2_scope": "https://www.googleapis.com/auth/userinfo.email"
+}
+```
+That's it! You can check it now in your browser.
+
 Good luck setting up custom OAuth2 on your Discourse!
 
 ### Issues
