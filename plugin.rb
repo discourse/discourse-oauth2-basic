@@ -86,7 +86,7 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
     user_json_response =
       if user_json_method.downcase.to_sym == :post
         Net::HTTP
-          .post_form(URI(user_json_url), { 'Authorization' => bearer_token })
+          .post_form(URI(user_json_url), 'Authorization' => bearer_token)
           .body
       else
         open(user_json_url, 'Authorization' => bearer_token).read
@@ -155,7 +155,6 @@ auth_provider title_setting: "oauth2_button_title",
               authenticator: OAuth2BasicAuthenticator.new('oauth2_basic'),
               message: "OAuth2",
               full_screen_login_setting: "oauth2_full_screen_login"
-
 
 register_css <<CSS
 
