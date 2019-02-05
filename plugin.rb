@@ -131,18 +131,23 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
       end
     end
 
-    Jobs.enqueue(:download_avatar_from_url,
-      url: avatar_url,
-      user_id: result.user.id,
-      override_gravatar: SiteSetting.sso_overrides_avatar
-    ) if result.user && avatar_url.present?
+    download_avatar(result.user, avatar_url)
 
-    result.extra_data = { oauth2_basic_user_id: user_details[:user_id] }
+    result.extra_data = { oauth2_basic_user_id: user_details[:user_id], avatar_url: avatar_url }
     result
   end
 
   def after_create_account(user, auth)
     ::PluginStore.set("oauth2_basic", "oauth2_basic_user_#{auth[:extra_data][:oauth2_basic_user_id]}", user_id: user.id)
+    download_avatar(user, auth[:extra_data][:avatar_url])
+  end
+
+  def download_avatar(user, avatar_url)
+    Jobs.enqueue(:download_avatar_from_url,
+      url: avatar_url,
+      user_id: user.id,
+      override_gravatar: SiteSetting.sso_overrides_avatar
+    ) if user && avatar_url.present?
   end
 
   def enabled?

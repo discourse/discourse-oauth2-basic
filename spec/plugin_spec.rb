@@ -56,7 +56,7 @@ describe OAuth2BasicAuthenticator do
         stub_request(:get, "http://avatar.example.com/avatar.png").to_return(body: png, headers: { "Content-Type" => "image/png" })
       end
 
-      it 'enqueues a download_avatar_from_url job' do
+      it 'enqueues a download_avatar_from_url job for existing user' do
         authenticator.expects(:fetch_user_details).returns(
           email: user.email,
           avatar: 'http://avatar.example.com/avatar.png'
@@ -71,7 +71,30 @@ describe OAuth2BasicAuthenticator do
         expect(job_args['user_id']).to eq(user.id)
         expect(job_args['override_gravatar']).to eq(false)
       end
+
+      it 'enqueues a download_avatar_from_url job for new user' do
+        authenticator.expects(:fetch_user_details).returns(
+          email: "unknown@user.com",
+          avatar: 'http://avatar.example.com/avatar.png'
+        )
+
+        auth_result = nil
+        expect {
+          auth_result = authenticator.after_authenticate(auth)
+        }.to change { job_klass.jobs.count }.by(0)
+
+        expect {
+          authenticator.after_create_account(user, auth_result.session_data)
+        }.to change { job_klass.jobs.count }.by(1)
+
+        job_args = job_klass.jobs.last['args'].first
+
+        expect(job_args['url']).to eq("http://avatar.example.com/avatar.png")
+        expect(job_args['user_id']).to eq(user.id)
+        expect(job_args['override_gravatar']).to eq(false)
+      end
     end
+
   end
 
   it 'can walk json' do
