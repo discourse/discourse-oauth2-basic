@@ -89,7 +89,7 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
           .post_form(URI(user_json_url), 'Authorization' => bearer_token)
           .body
       else
-        open(user_json_url, 'Authorization' => bearer_token).read
+        Excon.get(user_json_url, headers: { 'Authorization' => bearer_token, 'Accept' => 'application/json' }, expects: [200]).body
       end
 
     user_json = JSON.parse(user_json_response)
