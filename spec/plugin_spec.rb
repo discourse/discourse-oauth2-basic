@@ -46,6 +46,29 @@ describe OAuth2BasicAuthenticator do
       expect(result.user).to eq(user)
     end
 
+    it 'updated user email if enabled' do
+      authenticator.stubs(:fetch_user_details).returns(email: user.email, user_id: 'id')
+
+      # Create association
+      result = authenticator.after_authenticate(auth)
+      expect(result.user).to eq(user)
+
+      # Change user email on remote system
+      old_email = user.email
+      authenticator.stubs(:fetch_user_details).returns(email: "newemail@example.com", user_id: 'id')
+
+      # Login again - no change
+      result = authenticator.after_authenticate(auth)
+      expect(result.user).to eq(user)
+      expect(result.user.email).to eq(old_email)
+
+      # Enable site setting
+      SiteSetting.oauth2_overrides_email = true
+      result = authenticator.after_authenticate(auth)
+      expect(result.user).to eq(user)
+      expect(result.user.email).to eq("newemail@example.com")
+    end
+
     context 'avatar downloading' do
       before { SiteSetting.queue_jobs = true }
 
