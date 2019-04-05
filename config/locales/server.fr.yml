@@ -21,6 +21,7 @@ fr:
     oauth2_json_email_path: "Chemin d'accès dans le JSON Utilisateur OAuth2 vers son courriel. P.ex: user.email.primary"
     oauth2_json_avatar_path: "Chemin d'accès dans le JSON Utilisateur OAuth2 vers l'avatar de l'utilisateur: user.avatar_url"
     oauth2_email_verified: "Cocher ceci si le site OAuth2 a vérifié ce courriel"
+    oauth2_overrides_email: "Remplacer le courriel Discourse avec le courriel remote à chaque connexion"
     oauth2_send_auth_header: "Envoyer le token sous forme de HTTP Authorization header"
     oauth2_debug_auth: "Inclure des informations de debug étendues dans vos logs"
     oauth2_authorize_options: "Lors de l'authorisation demander ces options"

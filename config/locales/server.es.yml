@@ -21,6 +21,7 @@ es:
     oauth2_json_email_path: "Path en el OAuth2 User JSON para el user's email: user.email.primary"
     oauth2_json_avatar_path: "Path en el usuario JSON Oauth2 para el avatar del usuario: user.avatar_url"
     oauth2_email_verified: "Marque esto si el sitio OAuth2 ha verificado el correo electrónico"
+    oauth2_overrides_email: "Sobreescribir el email de Discourse con el email remoto en cada inicio de sesión."
     oauth2_send_auth_header: "Enviar el token como un encabezado de Autorización HTTP"
     oauth2_debug_auth: "Incluir abundante información de depuración en tus registros"
     oauth2_authorize_options: "Al autorizar solicitar estas opciones"

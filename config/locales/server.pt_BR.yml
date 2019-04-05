@@ -7,23 +7,24 @@
 
 pt_BR:
   site_settings:
-    oauth2_enabled: "OAuth2 personalizado está ativado"
+    oauth2_enabled: "OAuth2 Personalizado está ativado"
     oauth2_client_id: 'ID do cliente para o OAuth2 personalizado'
     oauth2_client_secret: 'Segredo do cliente para o OAuth2 personalizado'
     oauth2_authorize_url: 'URL de autorização para o OAuth2'
     oauth2_token_url: 'URL do token para o OAuth2'
     oauth2_token_url_method: 'Método usado para buscar o URL do token'
-    oauth2_user_json_url: 'URL para buscar o usuário JSON para OAuth2 (observe que substituímos: id com o id retornado pela chamada OAuth e: token com o id do token)'
+    oauth2_user_json_url: 'URL para buscar o usuário JSON para o OAuth2 (observe que substituímos :id com o id retornado pela chamada OAuth e :token com o id do token)'
     oauth2_user_json_url_method: 'Método usado para buscar o URL JSON do usuário'
-    oauth2_json_user_id_path: 'Caminho no JSON do usuário do OAuth2 para o ID do usuário. eg: user.id'
-    oauth2_json_username_path: 'Caminho no JSON do usuário do OAuth2 para o nome de usuário. por exemplo: user.username'
-    oauth2_json_name_path: "Caminho no JSON do usuário do OAuth2 para o usuário full: user.name.full"
-    oauth2_json_email_path: "Caminho no JSON do usuário do OAuth2 para o e-mail do usuário: user.email.primary"
-    oauth2_json_avatar_path: "Caminho no JSON do usuário do Oauth2 para o avatar do usuário: user.avatar_url"
-    oauth2_email_verified: "Verifique se o site do OAuth2 confirmou o e-mail"
-    oauth2_send_auth_header: "Envie o token como um cabeçalho de autorização HTTP"
-    oauth2_debug_auth: "Inclua informações de depuração avançadas em seus registros"
+    oauth2_json_user_id_path: 'Caminho no JSON do Usuário do OAuth2 para o ID do usuário. ex: user.id'
+    oauth2_json_username_path: 'Caminho no JSON do Usuário do OAuth2 para o nome de usuário. ex: user.username'
+    oauth2_json_name_path: "Caminho no JSON do Usuário do OAuth2 para o usuário completo: user.name.full"
+    oauth2_json_email_path: "Caminho no JSON do Usuário do OAuth2 para o e-mail do usuário: user.email.primary"
+    oauth2_json_avatar_path: "Caminho no JSON do Usuário do Oauth2 para o avatar do usuário: user.avatar_url"
+    oauth2_email_verified: "Verificar se o site do OAuth2 confirmou o e-mail"
+    oauth2_overrides_email: "Substituir o e-mail do Discourse pelo e-mail remoto em cada login"
+    oauth2_send_auth_header: "Enviar o token como um cabeçalho de Autorização HTTP"
+    oauth2_debug_auth: "Incluir informações de depuração avançadas em seus registros"
     oauth2_authorize_options: "Ao autorizar, solicite estas opções"
     oauth2_scope: "Ao autorizar, solicite este escopo"
-    oauth2_button_title: "O texto do botão OAuth2"
+    oauth2_button_title: "O texto para o botão OAuth2"
     oauth2_full_screen_login: "Usar a janela principal do navegador ao invés do popup para fazer login"
