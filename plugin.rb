@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # name: discourse-oauth2-basic
 # about: Generic OAuth2 Plugin
 # version: 0.3
@@ -64,7 +66,7 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
   end
 
   def json_walk(result, user_json, prop)
-    path = SiteSetting.send("oauth2_json_#{prop}_path")
+    path = SiteSetting.get("oauth2_json_#{prop}_path")
     if path.present?
       segments = path.split('.')
       val = walk_path(user_json, segments)
