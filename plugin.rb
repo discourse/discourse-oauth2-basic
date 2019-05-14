@@ -66,7 +66,7 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
   end
 
   def json_walk(result, user_json, prop)
-    path = SiteSetting.get("oauth2_json_#{prop}_path")
+    path = SiteSetting.public_send("oauth2_json_#{prop}_path")
     if path.present?
       segments = path.split('.')
       val = walk_path(user_json, segments)
