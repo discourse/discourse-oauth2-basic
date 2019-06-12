@@ -129,6 +129,15 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
       result.user&.update!(email: result.email) if SiteSetting.oauth2_overrides_email && result.email
     elsif SiteSetting.oauth2_email_verified?
       result.user = User.find_by_email(result.email)
+      if !result.user && SiteSetting.oauth2_overrides_all
+        user_params = {
+          primary_email: UserEmail.new(email: result.email, primary: true, skip_validate_email: true),
+          name: result.name,
+          username: result.username,
+          active: true,
+        }
+        result.user = User.create!(user_params)
+      end
       if result.user && user_details[:user_id]
         ::PluginStore.set("oauth2_basic", "oauth2_basic_user_#{user_details[:user_id]}", user_id: result.user.id)
       end
