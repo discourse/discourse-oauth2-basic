@@ -5,4 +5,11 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-ru: {}
+ru:
+  site_settings:
+    oauth2_enabled: "Пользовательский OAuth2 включен"
+    oauth2_debug_auth: "Включение расширенной отладочной информации в журналы"
+    oauth2_authorize_options: "При авторизации запрашивать эти параметры"
+    oauth2_scope: "При авторизации запроса эта область"
+    oauth2_button_title: "Текст для кнопки OAuth2"
+    oauth2_full_screen_login: "Используйте главное окно браузера вместо всплывающего окна для входа"

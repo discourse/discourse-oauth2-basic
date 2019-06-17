@@ -5,4 +5,26 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-it: {}
+it:
+  site_settings:
+    oauth2_enabled: "OAuth2 personalizzato abilitato"
+    oauth2_client_id: 'Client ID per OAuth2 personalizzato'
+    oauth2_client_secret: 'Client Secret per OAuth2 personalizzato'
+    oauth2_authorize_url: 'URL di autorizzazione per OAuth2'
+    oauth2_token_url: 'URL del token per OAuth2'
+    oauth2_token_url_method: 'Metodo utilizzato per recuperare l''URL del token'
+    oauth2_user_json_url: 'URL per recuperare l''utente JSON per OAuth2 (si noti che sostituiamo :id con l''id restituito dalla chiamata OAuth e :token con il token id)'
+    oauth2_user_json_url_method: 'Metodo utilizzato per recuperare l''URL JSON dell''utente'
+    oauth2_json_user_id_path: 'Percorso nel JSON dell''utente OAuth2 per l''ID utente. ad es.: user.id'
+    oauth2_json_username_path: 'Percorso nel JSON dell''utente OAuth2 con il nome utente. ad es.: user.username'
+    oauth2_json_name_path: "Percorso nel JSON dell'utente OAuth2 dell'utente per il nome completo: user.name.full"
+    oauth2_json_email_path: "Percorso nel JSON dell'utente OAuth2 all'email dell'utente: user.email.primary"
+    oauth2_json_avatar_path: "Percorso nel JSON dell'utente Oauth2 all'avatar dell'utente: user.avatar_url"
+    oauth2_email_verified: "Controlla questo se il sito OAuth2 ha verificato l'email"
+    oauth2_overrides_email: "Sostituisci l'email Discourse con l'email remota ad ogni accesso"
+    oauth2_send_auth_header: "Invia il token come header di autorizzazione HTTP"
+    oauth2_debug_auth: "Includi informazioni di debug complete nei tuoi log"
+    oauth2_authorize_options: "Quando si autorizza, richiedi queste opzioni"
+    oauth2_scope: "Quando si autorizza richiedi questo ambito"
+    oauth2_button_title: "Il testo per il pulsante OAuth2"
+    oauth2_full_screen_login: "Usa la finestra principale del browser invece del popup per il login"
