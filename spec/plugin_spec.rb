@@ -79,6 +79,10 @@ describe OAuth2BasicAuthenticator do
       result = authenticator.after_authenticate(auth)
       expect(result.email_valid).to eq(true)
 
+      authenticator.stubs(:fetch_user_details).returns(email: user.email, email_verified: nil)
+      result = authenticator.after_authenticate(auth)
+      expect(result.email_valid).to eq(false)
+
       # Check it doesn't interfere with the site setting
       SiteSetting.oauth2_email_verified = true
       authenticator.stubs(:fetch_user_details).returns(email: user.email, email_verified: false)
