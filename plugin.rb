@@ -159,7 +159,6 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
 end
 
 auth_provider title_setting: "oauth2_button_title",
-              enabled_setting: "oauth2_enabled",
               authenticator: OAuth2BasicAuthenticator.new('oauth2_basic'),
               message: "OAuth2",
               full_screen_login_setting: "oauth2_full_screen_login"
