@@ -71,6 +71,21 @@ describe OAuth2BasicAuthenticator do
       expect(result.user.email).to eq("newemail@example.com")
     end
 
+    it 'validates user email if provider has verified' do
+      SiteSetting.oauth2_email_verified = false
+
+      # Check it's working
+      authenticator.stubs(:fetch_user_details).returns(email: user.email, email_verified: true)
+      result = authenticator.after_authenticate(auth)
+      expect(result.email_valid).to eq(true)
+
+      # Check it doesn't interfere with the site setting
+      SiteSetting.oauth2_email_verified = true
+      authenticator.stubs(:fetch_user_details).returns(email: user.email, email_verified: false)
+      result = authenticator.after_authenticate(auth)
+      expect(result.email_valid).to eq(true)
+    end
+
     context 'avatar downloading' do
       before { SiteSetting.queue_jobs = true }
 
