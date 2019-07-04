@@ -140,13 +140,13 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
     result = Auth::Result.new
     token = auth['credentials']['token']
 
-    user_details = Hash.new
+    user_details = {}
     user_details[:user_id] = auth['uid'] if auth['uid']
     ['name', 'username', 'email', 'email_verified', 'avatar'].each do |key|
       user_details[key.to_sym] = auth['info'][key] if auth['info'][key]
     end
 
-    if SiteSetting.oauth2_fetch_user_details
+    if SiteSetting.oauth2_fetch_user_details?
       fetched_user_details = fetch_user_details(token, auth['uid'])
       user_details.merge!(fetched_user_details)
     end
