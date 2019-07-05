@@ -176,4 +176,71 @@ describe OAuth2BasicAuthenticator do
 
     expect(result).to eq 'http://example.com/1.png'
   end
+
+  context 'token_callback' do
+    let(:user) { Fabricate(:user) }
+    let(:strategy) { OmniAuth::Strategies::Oauth2Basic.new({}) }
+    let(:authenticator) { OAuth2BasicAuthenticator.new('oauth2_basic') }
+
+    let(:auth) do
+      {
+        'credentials' => {
+          'token' => 'token'
+        },
+        'uid' => 'e028b1b918853eca7fba208a9d7e9d29a6e93c57',
+        'info' => {
+          "name" => 'Sammy the Shark',
+          "email" => 'sammy@digitalocean.com'
+        },
+        'extra' => {}
+      }
+    end
+
+    let(:access_token) do
+      { "params" =>
+        { "info" =>
+          {
+            "name" => "Sammy the Shark",
+            "email" => "sammy@digitalocean.com",
+            "uuid" => "e028b1b918853eca7fba208a9d7e9d29a6e93c57"
+          }
+        }
+      }
+    end
+
+    before(:each) do
+      SiteSetting.oauth2_callback_user_id_path = 'params.info.uuid'
+      SiteSetting.oauth2_callback_user_info_paths = 'name:params.info.name|email:params.info.email'
+    end
+
+    it 'can retrieve user id from access token callback' do
+      strategy.stubs(:access_token).returns(access_token)
+      expect(strategy.uid).to eq 'e028b1b918853eca7fba208a9d7e9d29a6e93c57'
+    end
+
+    it 'can retrive user properties from access token callback' do
+      strategy.stubs(:access_token).returns(access_token)
+      expect(strategy.info['name']).to eq 'Sammy the Shark'
+      expect(strategy.info['email']).to eq 'sammy@digitalocean.com'
+    end
+
+    it 'does apply user properties from access token callback in after_authenticate' do
+      SiteSetting.oauth2_fetch_user_details = true
+      authenticator.stubs(:fetch_user_details).returns(email: 'sammy@digitalocean.com')
+      result = authenticator.after_authenticate(auth)
+
+      expect(result.extra_data[:oauth2_basic_user_id]).to eq 'e028b1b918853eca7fba208a9d7e9d29a6e93c57'
+      expect(result.name).to eq 'Sammy the Shark'
+      expect(result.email).to eq 'sammy@digitalocean.com'
+    end
+
+    it 'does work if user details are not fetched' do
+      SiteSetting.oauth2_fetch_user_details = false
+      result = authenticator.after_authenticate(auth)
+
+      expect(result.extra_data[:oauth2_basic_user_id]).to eq 'e028b1b918853eca7fba208a9d7e9d29a6e93c57'
+      expect(result.name).to eq 'Sammy the Shark'
+      expect(result.email).to eq 'sammy@digitalocean.com'
+    end
+  end
 end

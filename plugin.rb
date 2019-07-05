@@ -12,14 +12,37 @@ enabled_site_setting :oauth2_enabled
 
 class ::OmniAuth::Strategies::Oauth2Basic < ::OmniAuth::Strategies::OAuth2
   option :name, "oauth2_basic"
+
+  uid do
+    if path = SiteSetting.oauth2_callback_user_id_path.split('.')
+      recurse(access_token, [*path]) if path.present?
+    end
+  end
+
   info do
-    {
-      id: access_token['id']
-    }
+    if paths = SiteSetting.oauth2_callback_user_info_paths.split('|')
+      result = Hash.new
+      paths.each do |p|
+        segments = p.split(':')
+        if segments.length == 2
+          key = segments.first
+          path = [*segments.last.split('.')]
+          result[key] = recurse(access_token, path)
+        end
+      end
+      result
+    end
   end
 
   def callback_url
     Discourse.base_url_no_prefix + script_name + callback_path
+  end
+
+  def recurse(obj, keys)
+    return nil if !obj
+    k = keys.shift
+    result = obj.respond_to?(k) ? obj.send(k) : obj[k]
+    keys.empty? ? result : recurse(result, keys)
   end
 end
 
@@ -112,11 +135,21 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
   end
 
   def after_authenticate(auth)
-    log("after_authenticate response: \n\ncreds: #{auth['credentials'].to_hash}\ninfo: #{auth['info'].to_hash}\nextra: #{auth['extra'].to_hash}")
+    log("after_authenticate response: \n\ncreds: #{auth['credentials'].to_hash}\nuid: #{auth['uid']}\ninfo: #{auth['info'].to_hash}\nextra: #{auth['extra'].to_hash}")
 
     result = Auth::Result.new
     token = auth['credentials']['token']
-    user_details = fetch_user_details(token, auth['info'][:id])
+
+    user_details = {}
+    user_details[:user_id] = auth['uid'] if auth['uid']
+    ['name', 'username', 'email', 'email_verified', 'avatar'].each do |key|
+      user_details[key.to_sym] = auth['info'][key] if auth['info'][key]
+    end
+
+    if SiteSetting.oauth2_fetch_user_details?
+      fetched_user_details = fetch_user_details(token, auth['uid'])
+      user_details.merge!(fetched_user_details)
+    end
 
     result.name = user_details[:name]
     result.username = user_details[:username]
@@ -171,3 +204,5 @@ register_css <<CSS
   }
 
 CSS
+
+load File.expand_path("../lib/validators/oauth2_basic/oauth2_fetch_user_details_validator.rb", __FILE__)
