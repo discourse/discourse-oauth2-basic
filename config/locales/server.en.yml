@@ -7,7 +7,7 @@ en:
     oauth2_token_url: 'Token URL for OAuth2'
     oauth2_token_url_method: 'Method used to fetch the Token URL'
     oauth2_callback_user_id_path: 'Path in the token response to the user id. eg: params.info.uuid'
-    oauth2_callback_user_info_paths: 'Paths in the token response to other user properties. Supported properties are name, username, email, email_verfied and avatar. Format is property:path, eg: name:params.info.name'
+    oauth2_callback_user_info_paths: 'Paths in the token response to other user properties. Supported properties are name, username, email, email_verified and avatar. Format is property:path, eg: name:params.info.name'
     oauth2_fetch_user_details: "Fetch user JSON for OAuth2"
     oauth2_user_json_url: 'URL to fetch user JSON for OAuth2 (note we replace :id with the id returned by OAuth call and :token with the token id)'
     oauth2_user_json_url_method: 'Method used to fetch the user JSON URL'
