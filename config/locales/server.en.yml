@@ -1,4 +1,7 @@
 en:
+  login:
+    authenticator_error_fetch_user_details: "Could not retrieve your user details. Do you have an active account?"
+
   site_settings:
     oauth2_enabled: "Custom OAuth2 is enabled"
     oauth2_client_id: 'Client ID for custom OAuth2'
