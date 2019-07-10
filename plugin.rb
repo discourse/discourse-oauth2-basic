@@ -132,7 +132,7 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
       end
       result
     else
-      false
+      nil
     end
   end
 
