@@ -90,6 +90,12 @@ describe OAuth2BasicAuthenticator do
       expect(result.email_valid).to eq(true)
     end
 
+    it "fails gracefully if fetch_user_details fails" do
+      authenticator.stubs(:fetch_user_details).returns(false)
+      result = authenticator.after_authenticate(auth)
+      expect(result.failed).to eq(true)
+    end
+
     context 'avatar downloading' do
       before { SiteSetting.queue_jobs = true }
 
