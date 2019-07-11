@@ -90,6 +90,50 @@ describe OAuth2BasicAuthenticator do
       expect(result.email_valid).to eq(true)
     end
 
+    context "fetch_user_details" do
+      before(:each) do
+        SiteSetting.oauth2_fetch_user_details = true
+        SiteSetting.oauth2_user_json_url = "https://provider.com/user"
+        SiteSetting.oauth2_user_json_url_method = 'GET'
+        SiteSetting.oauth2_json_email_path = 'account.email'
+      end
+
+      let(:success_response) do
+        {
+          status: 200,
+          body: '{"account":{"email":"newemail@example.com"}}'
+        }
+      end
+
+      let (:fail_response) do
+        {
+          status: 403
+        }
+      end
+
+      it "works" do
+        stub_request(:get, SiteSetting.oauth2_user_json_url).to_return(success_response)
+        result = authenticator.after_authenticate(auth)
+        expect(result.email).to eq("newemail@example.com")
+
+        SiteSetting.oauth2_user_json_url_method = 'POST'
+        stub_request(:post, SiteSetting.oauth2_user_json_url).to_return(success_response)
+        result = authenticator.after_authenticate(auth)
+        expect(result.email).to eq("newemail@example.com")
+      end
+
+      it "returns an standardised result if the http request fails" do
+        stub_request(:get, SiteSetting.oauth2_user_json_url).to_return(fail_response)
+        result = authenticator.after_authenticate(auth)
+        expect(result.failed).to eq(true)
+
+        SiteSetting.oauth2_user_json_url_method = 'POST'
+        stub_request(:post, SiteSetting.oauth2_user_json_url).to_return(fail_response)
+        result = authenticator.after_authenticate(auth)
+        expect(result.failed).to eq(true)
+      end
+    end
+
     context 'avatar downloading' do
       before { SiteSetting.queue_jobs = true }
 

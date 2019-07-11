@@ -108,30 +108,32 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
     log("user_json_url: #{user_json_method} #{user_json_url}")
 
     bearer_token = "Bearer #{token}"
-    user_json_response =
-      if user_json_method.downcase.to_sym == :post
-        Net::HTTP
-          .post_form(URI(user_json_url), 'Authorization' => bearer_token)
-          .body
-      else
-        Excon.get(user_json_url, headers: { 'Authorization' => bearer_token, 'Accept' => 'application/json' }, expects: [200]).body
+    connection = Excon.new(
+      user_json_url,
+      :headers => { 'Authorization' => bearer_token, 'Accept' => 'application/json' }
+    )
+    user_json_response = connection.request(method: user_json_method)
+
+    log("user_json_response: #{user_json_response.inspect}")
+
+    if user_json_response.status == 200
+      user_json = JSON.parse(user_json_response.body)
+
+      log("user_json: #{user_json}")
+
+      result = {}
+      if user_json.present?
+        json_walk(result, user_json, :user_id)
+        json_walk(result, user_json, :username)
+        json_walk(result, user_json, :name)
+        json_walk(result, user_json, :email)
+        json_walk(result, user_json, :email_verified)
+        json_walk(result, user_json, :avatar)
       end
-
-    user_json = JSON.parse(user_json_response)
-
-    log("user_json: #{user_json}")
-
-    result = {}
-    if user_json.present?
-      json_walk(result, user_json, :user_id)
-      json_walk(result, user_json, :username)
-      json_walk(result, user_json, :name)
-      json_walk(result, user_json, :email)
-      json_walk(result, user_json, :email_verified)
-      json_walk(result, user_json, :avatar)
+      result
+    else
+      nil
     end
-
-    result
   end
 
   def after_authenticate(auth)
@@ -147,8 +149,13 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
     end
 
     if SiteSetting.oauth2_fetch_user_details?
-      fetched_user_details = fetch_user_details(token, auth['uid'])
-      user_details.merge!(fetched_user_details)
+      if fetched_user_details = fetch_user_details(token, auth['uid'])
+        user_details.merge!(fetched_user_details)
+      else
+        result.failed = true
+        result.failed_reason = I18n.t("login.authenticator_error_fetch_user_details")
+        return result
+      end
     end
 
     result.name = user_details[:name]
