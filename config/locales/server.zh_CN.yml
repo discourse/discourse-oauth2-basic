@@ -6,6 +6,8 @@
 # https://www.transifex.com/projects/p/discourse-org/
 
 zh_CN:
+  login:
+    authenticator_error_fetch_user_details: "无法获取你的用户详情。你拥有一个激活的帐号吗？"
   site_settings:
     oauth2_enabled: "自定义 OAuth2 已启用"
     oauth2_client_id: '自定义OAuth2的客户端ID'
@@ -13,6 +15,8 @@ zh_CN:
     oauth2_authorize_url: 'Oauth2的授权URL'
     oauth2_token_url: 'Oauth2的令牌URL'
     oauth2_token_url_method: '获取令牌URL的模式'
+    oauth2_callback_user_id_path: '令牌响应中的用户ID路径。例如：params.info.uuid'
+    oauth2_callback_user_info_paths: '令牌响应中的其它用户属性路径。支持的属性有name、username、email、email_verified和avatar。格式为property:path, 例如：name:params.info.name'
     oauth2_user_json_url: '用于获取OAuth2的用户JSON的URL（请注意，我们将替换：id与OAuth调用返回的ID和：令牌ID的令牌）'
     oauth2_user_json_url_method: '用于获取用户JSON URL的模式'
     oauth2_json_user_id_path: 'OAuth2用户JSON中的用户ID路径。例如：user.id'
@@ -28,3 +32,5 @@ zh_CN:
     oauth2_scope: "授权请求此范围时"
     oauth2_button_title: "OAuth2按钮显示的文字"
     oauth2_full_screen_login: "使用主浏览器窗口而非弹出窗口登录"
+    errors:
+      oauth2_fetch_user_details: "禁用oauth2_fetch_user_details必须提供oauth2_callback_user_id_path"
