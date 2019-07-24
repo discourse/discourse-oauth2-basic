@@ -30,10 +30,12 @@ require_relative '../plugin.rb'
 describe OAuth2BasicAuthenticator do
   context 'after_authenticate' do
     let(:user) { Fabricate(:user) }
-    let(:authenticator) { OAuth2BasicAuthenticator.new('oauth2_basic') }
+    let(:authenticator) { OAuth2BasicAuthenticator.new() }
 
     let(:auth) do
-      { 'credentials' => { 'token': 'token' },
+      { 'provider' => 'oauth2_basic',
+        'credentials' => { 'token': 'token' },
+        'uid' => '123456789',
         'info' => { id: 'id' },
         'extra' => {} }
     end
@@ -73,17 +75,19 @@ describe OAuth2BasicAuthenticator do
 
     it 'validates user email if provider has verified' do
       SiteSetting.oauth2_email_verified = false
-
-      # Check it's working
       authenticator.stubs(:fetch_user_details).returns(email: user.email, email_verified: true)
       result = authenticator.after_authenticate(auth)
       expect(result.email_valid).to eq(true)
-
+    end
+    
+    it 'doesnt validate user email if provider hasnt verified' do
+      SiteSetting.oauth2_email_verified = false
       authenticator.stubs(:fetch_user_details).returns(email: user.email, email_verified: nil)
       result = authenticator.after_authenticate(auth)
       expect(result.email_valid).to eq(false)
-
-      # Check it doesn't interfere with the site setting
+    end
+    
+    it 'doesnt affect the site setting' do
       SiteSetting.oauth2_email_verified = true
       authenticator.stubs(:fetch_user_details).returns(email: user.email, email_verified: false)
       result = authenticator.after_authenticate(auth)
@@ -135,7 +139,11 @@ describe OAuth2BasicAuthenticator do
     end
 
     context 'avatar downloading' do
-      before { SiteSetting.queue_jobs = true }
+      before do
+        SiteSetting.queue_jobs = true
+        SiteSetting.oauth2_fetch_user_details = true
+        SiteSetting.oauth2_email_verified = true
+      end
 
       let(:job_klass) { Jobs::DownloadAvatarFromUrl }
 
@@ -170,7 +178,7 @@ describe OAuth2BasicAuthenticator do
         expect {
           auth_result = authenticator.after_authenticate(auth)
         }.to change { job_klass.jobs.count }.by(0)
-
+        
         expect {
           authenticator.after_create_account(user, auth_result.session_data)
         }.to change { job_klass.jobs.count }.by(1)
@@ -186,7 +194,7 @@ describe OAuth2BasicAuthenticator do
   end
 
   it 'can walk json' do
-    authenticator = OAuth2BasicAuthenticator.new('oauth2_basic')
+    authenticator = OAuth2BasicAuthenticator.new()
     json_string = '{"user":{"id":1234,"email":{"address":"test@example.com"}}}'
     SiteSetting.oauth2_json_email_path = 'user.email.address'
     result = authenticator.json_walk({}, JSON.parse(json_string), :email)
@@ -195,7 +203,7 @@ describe OAuth2BasicAuthenticator do
   end
 
   it 'can walk json that contains an array' do
-    authenticator = OAuth2BasicAuthenticator.new('oauth2_basic')
+    authenticator = OAuth2BasicAuthenticator.new()
     json_string = '{"email":"test@example.com","identities":[{"user_id":"123456789","provider":"auth0","isSocial":false}]}'
     SiteSetting.oauth2_json_user_id_path = 'identities.[].user_id'
     result = authenticator.json_walk({}, JSON.parse(json_string), :user_id)
@@ -204,7 +212,7 @@ describe OAuth2BasicAuthenticator do
   end
 
   it 'can walk json and handle an empty array' do
-    authenticator = OAuth2BasicAuthenticator.new('oauth2_basic')
+    authenticator = OAuth2BasicAuthenticator.new()
     json_string = '{"email":"test@example.com","identities":[]}'
     SiteSetting.oauth2_json_user_id_path = 'identities.[].user_id'
     result = authenticator.json_walk({}, JSON.parse(json_string), :user_id)
@@ -213,7 +221,7 @@ describe OAuth2BasicAuthenticator do
   end
 
   it 'can walk json and download avatar' do
-    authenticator = OAuth2BasicAuthenticator.new('oauth2_basic')
+    authenticator = OAuth2BasicAuthenticator.new()
     json_string = '{"user":{"avatar":"http://example.com/1.png"}}'
     SiteSetting.oauth2_json_avatar_path = 'user.avatar'
     result = authenticator.json_walk({}, JSON.parse(json_string), :avatar)
@@ -224,10 +232,11 @@ describe OAuth2BasicAuthenticator do
   context 'token_callback' do
     let(:user) { Fabricate(:user) }
     let(:strategy) { OmniAuth::Strategies::Oauth2Basic.new({}) }
-    let(:authenticator) { OAuth2BasicAuthenticator.new('oauth2_basic') }
+    let(:authenticator) { OAuth2BasicAuthenticator.new() }
 
     let(:auth) do
       {
+        'provider' => 'oauth2_basic',
         'credentials' => {
           'token' => 'token'
         },
@@ -273,7 +282,7 @@ describe OAuth2BasicAuthenticator do
       authenticator.stubs(:fetch_user_details).returns(email: 'sammy@digitalocean.com')
       result = authenticator.after_authenticate(auth)
 
-      expect(result.extra_data[:oauth2_basic_user_id]).to eq 'e028b1b918853eca7fba208a9d7e9d29a6e93c57'
+      expect(result.extra_data[:uid]).to eq 'e028b1b918853eca7fba208a9d7e9d29a6e93c57'
       expect(result.name).to eq 'Sammy the Shark'
       expect(result.email).to eq 'sammy@digitalocean.com'
     end
@@ -282,7 +291,7 @@ describe OAuth2BasicAuthenticator do
       SiteSetting.oauth2_fetch_user_details = false
       result = authenticator.after_authenticate(auth)
 
-      expect(result.extra_data[:oauth2_basic_user_id]).to eq 'e028b1b918853eca7fba208a9d7e9d29a6e93c57'
+      expect(result.extra_data[:uid]).to eq 'e028b1b918853eca7fba208a9d7e9d29a6e93c57'
       expect(result.name).to eq 'Sammy the Shark'
       expect(result.email).to eq 'sammy@digitalocean.com'
     end
