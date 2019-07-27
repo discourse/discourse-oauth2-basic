@@ -177,7 +177,7 @@ class OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
 end
 
 auth_provider title_setting: "oauth2_button_title",
-              authenticator: OAuth2BasicAuthenticator.new(),
+              authenticator: OAuth2BasicAuthenticator.new,
               message: "OAuth2",
               full_screen_login_setting: "oauth2_full_screen_login"
 

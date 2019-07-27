@@ -30,7 +30,7 @@ require_relative '../plugin.rb'
 describe OAuth2BasicAuthenticator do
   context 'after_authenticate' do
     let(:user) { Fabricate(:user) }
-    let(:authenticator) { OAuth2BasicAuthenticator.new() }
+    let(:authenticator) { OAuth2BasicAuthenticator.new }
 
     let(:auth) do
       { 'provider' => 'oauth2_basic',
@@ -194,7 +194,7 @@ describe OAuth2BasicAuthenticator do
   end
 
   it 'can walk json' do
-    authenticator = OAuth2BasicAuthenticator.new()
+    authenticator = OAuth2BasicAuthenticator.new
     json_string = '{"user":{"id":1234,"email":{"address":"test@example.com"}}}'
     SiteSetting.oauth2_json_email_path = 'user.email.address'
     result = authenticator.json_walk({}, JSON.parse(json_string), :email)
@@ -203,7 +203,7 @@ describe OAuth2BasicAuthenticator do
   end
 
   it 'can walk json that contains an array' do
-    authenticator = OAuth2BasicAuthenticator.new()
+    authenticator = OAuth2BasicAuthenticator.new
     json_string = '{"email":"test@example.com","identities":[{"user_id":"123456789","provider":"auth0","isSocial":false}]}'
     SiteSetting.oauth2_json_user_id_path = 'identities.[].user_id'
     result = authenticator.json_walk({}, JSON.parse(json_string), :user_id)
@@ -212,7 +212,7 @@ describe OAuth2BasicAuthenticator do
   end
 
   it 'can walk json and handle an empty array' do
-    authenticator = OAuth2BasicAuthenticator.new()
+    authenticator = OAuth2BasicAuthenticator.new
     json_string = '{"email":"test@example.com","identities":[]}'
     SiteSetting.oauth2_json_user_id_path = 'identities.[].user_id'
     result = authenticator.json_walk({}, JSON.parse(json_string), :user_id)
@@ -221,7 +221,7 @@ describe OAuth2BasicAuthenticator do
   end
 
   it 'can walk json and download avatar' do
-    authenticator = OAuth2BasicAuthenticator.new()
+    authenticator = OAuth2BasicAuthenticator.new
     json_string = '{"user":{"avatar":"http://example.com/1.png"}}'
     SiteSetting.oauth2_json_avatar_path = 'user.avatar'
     result = authenticator.json_walk({}, JSON.parse(json_string), :avatar)
@@ -232,7 +232,7 @@ describe OAuth2BasicAuthenticator do
   context 'token_callback' do
     let(:user) { Fabricate(:user) }
     let(:strategy) { OmniAuth::Strategies::Oauth2Basic.new({}) }
-    let(:authenticator) { OAuth2BasicAuthenticator.new() }
+    let(:authenticator) { OAuth2BasicAuthenticator.new }
 
     let(:auth) do
       {
