@@ -141,7 +141,7 @@ class OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
   end
   
   def primary_email_verified?(auth)
-    ActiveModel::Type::Boolean.new.cast(auth['info']['email_verified']) ||
+    auth['info']['email_verified'] ||
     SiteSetting.oauth2_email_verified
   end
   
