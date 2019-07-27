@@ -15,6 +15,8 @@ class MoveToManagedAuthenticator < ActiveRecord::Migration[5.2]
       CURRENT_TIMESTAMP
     FROM plugin_store_rows
     WHERE plugin_name = 'oauth2_basic'
+    ON CONFLICT (provider_name, user_id)
+    DO NOTHING
     SQL
   end
 end
