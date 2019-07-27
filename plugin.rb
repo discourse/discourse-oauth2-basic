@@ -51,6 +51,14 @@ class OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
     'oauth2_basic'
   end
 
+  def can_revoke?
+    SiteSetting.oauth2_allow_association_change
+  end
+
+  def can_connect_existing_user?
+    SiteSetting.oauth2_allow_association_change
+  end
+
   def register_middleware(omniauth)
     omniauth.provider :oauth2_basic,
                       name: name,

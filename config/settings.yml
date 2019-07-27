@@ -46,3 +46,5 @@ login:
   oauth2_full_screen_login:
     default: false
     client: true
+  oauth2_allow_association_change:
+    default: false
