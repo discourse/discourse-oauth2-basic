@@ -149,7 +149,7 @@ class OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
     SiteSetting.oauth2_overrides_email
   end
 
-  def after_authenticate(auth)
+  def after_authenticate(auth, existing_account: nil)
     log("after_authenticate response: \n\ncreds: #{auth['credentials'].to_hash}\nuid: #{auth['uid']}\ninfo: #{auth['info'].to_hash}\nextra: #{auth['extra'].to_hash}")
 
     if SiteSetting.oauth2_fetch_user_details?
