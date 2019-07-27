@@ -176,7 +176,7 @@ class OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
       end
     end
 
-    super(auth)
+    super(auth, existing_account: existing_account)
   end
 
   def enabled?
