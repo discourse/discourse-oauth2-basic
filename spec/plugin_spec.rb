@@ -33,11 +33,11 @@ describe OAuth2BasicAuthenticator do
     let(:authenticator) { OAuth2BasicAuthenticator.new }
 
     let(:auth) do
-      { 'provider' => 'oauth2_basic',
+      OmniAuth::AuthHash.new({ 'provider' => 'oauth2_basic',
         'credentials' => { 'token': 'token' },
         'uid' => '123456789',
         'info' => { id: 'id' },
-        'extra' => {} }.with_indifferent_access
+        'extra' => {} })
     end
 
     before(:each) do
@@ -235,7 +235,7 @@ describe OAuth2BasicAuthenticator do
     let(:authenticator) { OAuth2BasicAuthenticator.new }
 
     let(:auth) do
-      {
+      OmniAuth::AuthHash.new({
         'provider' => 'oauth2_basic',
         'credentials' => {
           'token' => 'token'
@@ -246,7 +246,7 @@ describe OAuth2BasicAuthenticator do
           "email" => 'sammy@digitalocean.com'
         },
         'extra' => {}
-      }.with_indifferent_access
+      })
     end
 
     let(:access_token) do
