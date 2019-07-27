@@ -46,10 +46,22 @@ class ::OmniAuth::Strategies::Oauth2Basic < ::OmniAuth::Strategies::OAuth2
   end
 end
 
-class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
+class OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
+  def name
+    'oauth2_basic'
+  end
+
+  def can_revoke?
+    SiteSetting.oauth2_allow_association_change
+  end
+
+  def can_connect_existing_user?
+    SiteSetting.oauth2_allow_association_change
+  end
+
   def register_middleware(omniauth)
     omniauth.provider :oauth2_basic,
-                      name: 'oauth2_basic',
+                      name: name,
                       setup: lambda { |env|
                         opts = env['omniauth.strategy'].options
                         opts[:client_id] = SiteSetting.oauth2_client_id
@@ -110,7 +122,7 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
     bearer_token = "Bearer #{token}"
     connection = Excon.new(
       user_json_url,
-      :headers => { 'Authorization' => bearer_token, 'Accept' => 'application/json' }
+      headers: { 'Authorization' => bearer_token, 'Accept' => 'application/json' }
     )
     user_json_response = connection.request(method: user_json_method)
 
@@ -136,62 +148,35 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
     end
   end
 
-  def after_authenticate(auth)
+  def primary_email_verified?(auth)
+    auth['info']['email_verified'] ||
+    SiteSetting.oauth2_email_verified
+  end
+
+  def always_update_user_email?
+    SiteSetting.oauth2_overrides_email
+  end
+
+  def after_authenticate(auth, existing_account: nil)
     log("after_authenticate response: \n\ncreds: #{auth['credentials'].to_hash}\nuid: #{auth['uid']}\ninfo: #{auth['info'].to_hash}\nextra: #{auth['extra'].to_hash}")
 
-    result = Auth::Result.new
-    token = auth['credentials']['token']
-
-    user_details = {}
-    user_details[:user_id] = auth['uid'] if auth['uid']
-    ['name', 'username', 'email', 'email_verified', 'avatar'].each do |key|
-      user_details[key.to_sym] = auth['info'][key] if auth['info'][key]
-    end
-
     if SiteSetting.oauth2_fetch_user_details?
-      if fetched_user_details = fetch_user_details(token, auth['uid'])
-        user_details.merge!(fetched_user_details)
+      if fetched_user_details = fetch_user_details(auth['credentials']['token'], auth['uid'])
+        auth['uid'] = fetched_user_details[:user_id] if fetched_user_details[:user_id]
+        auth['info']['nickname'] = fetched_user_details[:username] if fetched_user_details[:username]
+        auth['info']['image'] = fetched_user_details[:avatar] if fetched_user_details[:avatar]
+        ['name', 'email', 'email_verified'].each do |property|
+          auth['info'][property] = fetched_user_details[property.to_sym] if fetched_user_details[property.to_sym]
+        end
       else
+        result = Auth::Result.new
         result.failed = true
         result.failed_reason = I18n.t("login.authenticator_error_fetch_user_details")
         return result
       end
     end
 
-    result.name = user_details[:name]
-    result.username = user_details[:username]
-    result.email = user_details[:email]
-    result.email_valid = result.email.present? && (user_details[:email_verified] || SiteSetting.oauth2_email_verified?)
-    avatar_url = user_details[:avatar]
-
-    current_info = ::PluginStore.get("oauth2_basic", "oauth2_basic_user_#{user_details[:user_id]}")
-    if current_info
-      result.user = User.where(id: current_info[:user_id]).first
-      result.user&.update!(email: result.email) if SiteSetting.oauth2_overrides_email && result.email
-    elsif result.email_valid
-      result.user = User.find_by_email(result.email)
-      if result.user && user_details[:user_id]
-        ::PluginStore.set("oauth2_basic", "oauth2_basic_user_#{user_details[:user_id]}", user_id: result.user.id)
-      end
-    end
-
-    download_avatar(result.user, avatar_url)
-
-    result.extra_data = { oauth2_basic_user_id: user_details[:user_id], avatar_url: avatar_url }
-    result
-  end
-
-  def after_create_account(user, auth)
-    ::PluginStore.set("oauth2_basic", "oauth2_basic_user_#{auth[:extra_data][:oauth2_basic_user_id]}", user_id: user.id)
-    download_avatar(user, auth[:extra_data][:avatar_url])
-  end
-
-  def download_avatar(user, avatar_url)
-    Jobs.enqueue(:download_avatar_from_url,
-      url: avatar_url,
-      user_id: user.id,
-      override_gravatar: SiteSetting.sso_overrides_avatar
-    ) if user && avatar_url.present?
+    super(auth, existing_account: existing_account)
   end
 
   def enabled?
@@ -200,7 +185,7 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
 end
 
 auth_provider title_setting: "oauth2_button_title",
-              authenticator: OAuth2BasicAuthenticator.new('oauth2_basic'),
+              authenticator: OAuth2BasicAuthenticator.new,
               message: "OAuth2",
               full_screen_login_setting: "oauth2_full_screen_login"
 
