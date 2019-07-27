@@ -168,7 +168,7 @@ class OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
       end
     end
         
-    super(auth.with_indifferent_access)
+    super(auth)
   end
 
   def enabled?

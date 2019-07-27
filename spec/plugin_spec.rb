@@ -37,7 +37,7 @@ describe OAuth2BasicAuthenticator do
         'credentials' => { 'token': 'token' },
         'uid' => '123456789',
         'info' => { id: 'id' },
-        'extra' => {} }
+        'extra' => {} }.with_indifferent_access
     end
 
     before(:each) do
@@ -246,7 +246,7 @@ describe OAuth2BasicAuthenticator do
           "email" => 'sammy@digitalocean.com'
         },
         'extra' => {}
-      }
+      }.with_indifferent_access
     end
 
     let(:access_token) do
