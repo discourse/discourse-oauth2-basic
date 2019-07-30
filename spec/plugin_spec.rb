@@ -33,11 +33,11 @@ describe OAuth2BasicAuthenticator do
     let(:authenticator) { OAuth2BasicAuthenticator.new }
 
     let(:auth) do
-      OmniAuth::AuthHash.new({ 'provider' => 'oauth2_basic',
-        'credentials' => { 'token': 'token' },
-        'uid' => '123456789',
-        'info' => { id: 'id' },
-        'extra' => {} })
+      OmniAuth::AuthHash.new('provider' => 'oauth2_basic',
+                             'credentials' => { 'token': 'token' },
+                             'uid' => '123456789',
+                             'info' => { id: 'id' },
+                             'extra' => {})
     end
 
     before(:each) do
@@ -79,14 +79,14 @@ describe OAuth2BasicAuthenticator do
       result = authenticator.after_authenticate(auth)
       expect(result.email_valid).to eq(true)
     end
-    
+
     it 'doesnt validate user email if provider hasnt verified' do
       SiteSetting.oauth2_email_verified = false
       authenticator.stubs(:fetch_user_details).returns(email: user.email, email_verified: nil)
       result = authenticator.after_authenticate(auth)
       expect(result.email_valid).to eq(false)
     end
-    
+
     it 'doesnt affect the site setting' do
       SiteSetting.oauth2_email_verified = true
       authenticator.stubs(:fetch_user_details).returns(email: user.email, email_verified: false)
@@ -235,7 +235,7 @@ describe OAuth2BasicAuthenticator do
     let(:authenticator) { OAuth2BasicAuthenticator.new }
 
     let(:auth) do
-      OmniAuth::AuthHash.new({
+      OmniAuth::AuthHash.new(
         'provider' => 'oauth2_basic',
         'credentials' => {
           'token' => 'token'
@@ -246,7 +246,7 @@ describe OAuth2BasicAuthenticator do
           "email" => 'sammy@digitalocean.com'
         },
         'extra' => {}
-      })
+      )
     end
 
     let(:access_token) do
