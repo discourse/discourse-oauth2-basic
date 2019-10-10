@@ -5,4 +5,12 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-fi: {}
+fi:
+  login:
+    authenticator_error_fetch_user_details: "Käyttäjätietojasi ei löytynyt. Oletko varma, että tilisi on aktiivinen? "
+  site_settings:
+    oauth2_email_verified: "Tarkasta, onko tämä OAuth2 sivusto varmistanut sähköpostin"
+    oauth2_overrides_email: "Syrjäytä Discourse sähköposti etäsähköpostilla jokaisella sisäänkirjautumisella"
+    oauth2_debug_auth: "Sisällytä logeihin laajat virheenkorjaustiedot"
+    oauth2_button_title: "Teksti OAuth2 painiketta varten"
+    oauth2_full_screen_login: "Käytä selaimen pääikkunaa kirjautumiseen popup ikkunan sijaan"

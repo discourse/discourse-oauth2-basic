@@ -34,5 +34,6 @@ ur:
     oauth2_scope: "اَوتھرائز کرتے وقت اِس سکَوپ کی درخواست کریں"
     oauth2_button_title: "OAuth2 بٹن کیلئے متن"
     oauth2_full_screen_login: "لاگ اِن کیلئے پاپ اَپ کے بجائے مَین براؤزر وِنڈو کا استعمال کریں"
+    oauth2_allow_association_change: صارفین کو OAuth2 فراہم کنندہ سے اپنے ڈِسکَورس اکاؤنٹس کو منقطع اور دوبارہ کنیکٹ کرنے کی اجازت دیں
     errors:
       oauth2_fetch_user_details: "oauth2_fetch_user_details غیر فعال کرنے کیلئے oauth2_callback_user_id_path کا موجود ہونا لاذمی ہے"

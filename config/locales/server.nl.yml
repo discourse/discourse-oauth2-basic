@@ -6,6 +6,8 @@
 # https://www.transifex.com/projects/p/discourse-org/
 
 nl:
+  login:
+    authenticator_error_fetch_user_details: "Kon uw gebruikersgegevens niet ophalen. Hebt u een actieve account?"
   site_settings:
     oauth2_enabled: "Aangepaste OAuth2 is ingeschakeld"
     oauth2_client_id: 'Client-ID voor aangepaste OAuth2'
@@ -32,5 +34,6 @@ nl:
     oauth2_scope: "Deze scope aanvragen bij autoriseren"
     oauth2_button_title: "De tekst voor de OAuth2-knop"
     oauth2_full_screen_login: "Hoofdbrowservenster gebruiken in plaats van pop-up voor aanmelding"
+    oauth2_allow_association_change: Gebruikers mogen hun Discourse-accounts van de OAuth2-provider ontkoppelen en opnieuw koppelen
     errors:
       oauth2_fetch_user_details: "oauth2_callback_user_id_path moet aanwezig zijn om oauth2_fetch_user_details uit te schakelen"

@@ -6,26 +6,34 @@
 # https://www.transifex.com/projects/p/discourse-org/
 
 es:
+  login:
+    authenticator_error_fetch_user_details: "No se pudieron recuperar tus datos de usuario. ¿Tienes una cuenta activa?"
   site_settings:
-    oauth2_enabled: "Custom OAuth2 está habilitado"
-    oauth2_client_id: 'Client ID para custom OAuth2'
-    oauth2_client_secret: 'Client Secret para custom OAuth2'
-    oauth2_authorize_url: 'URL de Autorización para OAuth2'
-    oauth2_token_url: 'Token URL para OAuth2'
+    oauth2_enabled: "OAuth2 personalizado está habilitado"
+    oauth2_client_id: 'ID de cliente para OAuth2 personalizado'
+    oauth2_client_secret: 'Secreto de cliente para OAuth2 personalizado'
+    oauth2_authorize_url: 'URL de autorización para OAuth2'
+    oauth2_token_url: 'URL de token para OAuth2'
     oauth2_token_url_method: 'Método utilizado para obtener la URL del token'
-    oauth2_user_json_url: 'URL para buscar el usuario JSON para OAuth2 (nota que reemplazamos :id con el id devuelto por la llamada OAuth y :token con el token id)'
+    oauth2_callback_user_id_path: 'Ruta en la respuesta del token a la identificación del usuario. Ejemplo: params.info.uuid'
+    oauth2_callback_user_info_paths: 'Rutas en la respuesta del token a otras propiedades del usuario. Las propiedades admitidas son nombre, nombre de usuario, correo electrónico, email_verified y avatar. El formato es propiedad:ruta, por ejemplo: nombre:params.info.nombre'
+    oauth2_fetch_user_details: "Obtener usuario JSON para OAuth2"
+    oauth2_user_json_url: 'URL para obtener el usuario JSON para OAuth2 (ten en cuenta que reemplazamos :id con la id devuelta por OAuth call y :token con la id del token)'
     oauth2_user_json_url_method: 'Método utilizado para obtener la URL JSON del usuario'
-    oauth2_json_user_id_path: 'Path en el OAuth2 User JSON para el user id. Ejemplo: user.id'
-    oauth2_json_username_path: 'Path en el OAuth2 User JSON para el username. Ejemplo: user.username'
-    oauth2_json_name_path: "Path en el OAuth2 User JSON para el user's full: user.name.full"
-    oauth2_json_email_path: "Path en el OAuth2 User JSON para el user's email: user.email.primary"
+    oauth2_json_user_id_path: 'Ruta en el JSON del usuario de OAuth2 a la ID del usuario. por ejemplo: usuario.id'
+    oauth2_json_username_path: 'Ruta en el JSON del usuario de OAuth2 al nombre de usuario. por ejemplo: user.username'
+    oauth2_json_name_path: "Ruta en el JSON del usuario de OAuth2 al usuario completo: user.name.full"
+    oauth2_json_email_path: "Ruta en el JSON del usuario de OAuth2 al correo electrónico del usuario: user.email.primary"
     oauth2_json_email_verified_path: "Ruta en el JSON del usuario de OAuth2 al estado de verificación de correo electrónico del usuario: user.email.verified"
-    oauth2_json_avatar_path: "Path en el usuario JSON Oauth2 para el avatar del usuario: user.avatar_url"
-    oauth2_email_verified: "Marque esto si el sitio OAuth2 ha verificado el correo electrónico"
-    oauth2_overrides_email: "Sobreescribir el email de Discourse con el email remoto en cada inicio de sesión."
-    oauth2_send_auth_header: "Enviar el token como un encabezado de Autorización HTTP"
-    oauth2_debug_auth: "Incluir abundante información de depuración en tus registros"
-    oauth2_authorize_options: "Al autorizar solicitar estas opciones"
-    oauth2_scope: "Al autorizar solicitar este alcance"
+    oauth2_json_avatar_path: "Ruta en el JSON del usuario de Oauth2 al avatar del usuario: user.avatar_url"
+    oauth2_email_verified: "Marca esto si el sitio OAuth2 ha verificado el correo electrónico"
+    oauth2_overrides_email: "Sobrescribir el correo electrónico de Discourse con el correo electrónico remoto en cada inicio de sesión"
+    oauth2_send_auth_header: "Enviar el token como un encabezado de autorización HTTP"
+    oauth2_debug_auth: "Incluir información abundante de depuración en tus registros"
+    oauth2_authorize_options: "Al autorizar, solicitar estas opciones"
+    oauth2_scope: "Al autorizar, solicitar este alcance"
     oauth2_button_title: "El texto para el botón OAuth2"
-    oauth2_full_screen_login: "Use la ventana principal del navegador en lugar de la ventana emergente para iniciar sesión"
+    oauth2_full_screen_login: "Usa la ventana principal del navegador en lugar de la ventana emergente para iniciar sesión"
+    oauth2_allow_association_change: Permitir a los usuarios desconectar y volver a conectar sus cuentas de Discourse del proveedor OAuth2
+    errors:
+      oauth2_fetch_user_details: "oauth2_callback_user_id_path debe estar presente para deshabilitar oauth2_fetch_user_details"

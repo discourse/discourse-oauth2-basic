@@ -34,5 +34,6 @@ he:
     oauth2_scope: "בעת בקשת אימות תחום זה"
     oauth2_button_title: "הטקסט לכפתור ה־OAuth2"
     oauth2_full_screen_login: "שימוש בחלון הדפדפן הראשי במקום בחלון קופץ לטובת כניסה"
+    oauth2_allow_association_change: לאפשר למשתמשים לנתק ולחבר מחדש את חשבונות ה־Discourse שלהם מספק ה־OAuth2
     errors:
       oauth2_fetch_user_details: "oauth2_callback_user_id_path חייב להיות נוכח לטובת נטרול של oauth2_fetch_user_details"

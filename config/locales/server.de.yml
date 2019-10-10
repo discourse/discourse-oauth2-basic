@@ -6,6 +6,8 @@
 # https://www.transifex.com/projects/p/discourse-org/
 
 de:
+  login:
+    authenticator_error_fetch_user_details: "Konnte die Benutzer-Details nicht laden. Hast du ein aktives Konto?"
   site_settings:
     oauth2_enabled: "Benutzerdefiniertes OAuth2 ist aktiviert"
     oauth2_client_id: 'Kundennummer für benutzerdefiniertes OAuth2'
@@ -13,12 +15,16 @@ de:
     oauth2_authorize_url: 'Autorisierungs-URL für OAuth2'
     oauth2_token_url: 'Token-URL für OAuth2'
     oauth2_token_url_method: 'Methode, mit der die Token-URL aufgerufen wird'
+    oauth2_callback_user_id_path: 'Pfad in der Token-Antwort zur Benutzer-ID. Beispiel: params.info.uuid'
+    oauth2_callback_user_info_paths: 'Pfad in der Token-Antwort zu den Benutzer-Eigenschaften. Unterstützte Eigenschaften sind name, username, email, email_verified und avatar. Format ist Eigenschaft:Pfad, z.B.: name:params.info.name'
+    oauth2_fetch_user_details: "Hole Benutzer JSON für OAuth2"
     oauth2_user_json_url: 'URL, um Benutzer-JSON für OAuth2 abzrufen (beachte, dass wir :id mit der ID ersetzen, die vom OAuth-Aufruf geliefert wird, und :token mit der Token-ID)'
     oauth2_user_json_url_method: 'Methode, mit der die Benutzer-JSON-URL aufgerufen wird'
     oauth2_json_user_id_path: 'Pfad im OAuth2-Benutzer-JSON zur Benutzer-ID. Beispiel: user.id'
     oauth2_json_username_path: 'Pfad im OAuth2-Benutzer-JSON zum Benutzername. Beispiel: user.username'
     oauth2_json_name_path: "Pfad im OAuth2-Benutzer-JSON zum vollständigen Namen des Benutzers. Beispiel: user.name.full"
     oauth2_json_email_path: "Pfad im OAuth2-Benutzer-JSON zur E-Mail-Adresse des Benutzers. Beispiel: user.email.primary"
+    oauth2_json_email_verified_path: "Pfad in der OAuth2 Benutzer JSON zum E-Mail Überprüfungs-Status des Benutzers: user.email.verified"
     oauth2_json_avatar_path: "Pfad im OAuth2-Benutzer-JSON zum Benutzer-Profilbild. Beispiel: user.avatar_url"
     oauth2_email_verified: "Prüfe, ob die OAuth2-Seite die E-Mail-Adresse verifiziert hat"
     oauth2_overrides_email: "Überschreibe die Discourse E-Mail bei jedem Einloggen mit der Remote E-Mail"
@@ -28,3 +34,6 @@ de:
     oauth2_scope: "Bei der Autorisierung folgenden Scope anfordern"
     oauth2_button_title: "Der Text für die OAuth2 Schaltfläche"
     oauth2_full_screen_login: "Verwende zum Anmelden das Hauptfenster des Browsers statt einem Popup-Fenster"
+    oauth2_allow_association_change: Benutzern erlauben, ihre Discourse Konten beim OAuth2 Lieferanten abzutrennen und wieder zu verbinden
+    errors:
+      oauth2_fetch_user_details: "oauth2_callback_user_id_path muss vorhanden sein um oauth2_fetch_user_details zu deaktivieren"
