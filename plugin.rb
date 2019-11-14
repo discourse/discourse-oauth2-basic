@@ -97,7 +97,7 @@ class OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
       deref = fragment[0] # Take just the first array for now, maybe later we can teach it to walk the array if we need to
     end
 
-    return (deref.blank? || segments.size == 1) ? deref : walk_path(deref, segments[1..-1])
+    (deref.blank? || segments.size == 1) ? deref : walk_path(deref, segments[1..-1])
   end
 
   def json_walk(result, user_json, prop)
