@@ -24,7 +24,6 @@ ca:
     oauth2_json_username_path: 'Camí en el JSON d''usuari OAuth2 al nom d''usuari, p. ex.: user.username'
     oauth2_json_name_path: "Camí en el JSON d'usuari OAuth2 al nom complet d'usuari: user.name.full"
     oauth2_json_email_path: "Camí en el JSON usuari d'OAuth2 al correu electrònic de l'usuari: user.email.primary"
-    oauth2_json_email_verified_path: "Camí en el JSON d'usuari OAuth2 a l'estat de verificació del correu: user.email.verified"
     oauth2_json_avatar_path: "Camí en el JSON d'usuari OAuth2 a l'avatar de l'usuari: user.avatar_url"
     oauth2_email_verified: "Comprova-ho si el lloc web OAuth2 ha verificat el correu electrònic"
     oauth2_overrides_email: "Sobreescriu el correu electrònic de Discourse amb el correu remot en cada inici de sessió"

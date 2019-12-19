@@ -24,7 +24,7 @@ nl:
     oauth2_json_username_path: 'Pad in de OAuth2-gebruikers-JSON naar de gebruikersnaam, bv. user.username'
     oauth2_json_name_path: "Pad in de OAuth2-gebruikers-JSON naar de volledige naam van de gebruiker: user.name.full"
     oauth2_json_email_path: "Pad in de OAuth2-gebruikers-JSON naar het e-mailadres van de gebruiker: user.email.primary"
-    oauth2_json_email_verified_path: "Pad in de OAuth2-gebruikers-JSON naar de e-mailverificatiestatus van de gebruiker: user.email.verified"
+    oauth2_json_email_verified_path: "Pad in de OAuth2-gebruikers-JSON naar de e-mailverificatiestatus van de gebruiker: user.email.verified. Deze instelling heeft alleen effect als oauth2_email_verified is uitgeschakeld"
     oauth2_json_avatar_path: "Pad in de OAuth2-gebruikers-JSON naar de avatar van de gebruiker: user.avatar_url"
     oauth2_email_verified: "Dit controleren als de OAuth2-website het e-mailadres heeft geverifieerd"
     oauth2_overrides_email: "Het Discourse-e-mailadres vervangen door het externe e-mailadres bij elke aanmelding"

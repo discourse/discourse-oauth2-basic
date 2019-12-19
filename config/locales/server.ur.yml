@@ -24,7 +24,6 @@ ur:
     oauth2_json_username_path: 'OAuth2 صارف JSON میں صارف نام کا پاتھ۔ مثال: user.username'
     oauth2_json_name_path: "OAuth2 صارف JSON میں صارف کے پورے نام کا پاتھ۔ مثال: user.name.full"
     oauth2_json_email_path: "OAuth2 صارف JSON میں صارف ای مَیل کا پاتھ۔ مثال: user.email.primary"
-    oauth2_json_email_verified_path: "OAuth2 صارف JSON میں صارف ایمَیل توثیق کی حالت کا پاتھ۔ مثال: user.email.verified"
     oauth2_json_avatar_path: "Oauth2 صارف JSON میں صارف کے اوتار کا پاتھ۔ مثال: user.avatar_url"
     oauth2_email_verified: "اِس کو چیک لگائیں اگر OAuth2 سائٹ نے ای مَیل کی توثیق کی ہوئی ہے"
     oauth2_overrides_email: "ہر لاگ اِن پر ڈسکورس ای میل کو ریمَوٹ ای میل سے اَووَرَّائڈ کریں"

@@ -24,7 +24,6 @@ zh_CN:
     oauth2_json_username_path: 'OAuth2用户JSON中的用户名路径。例如：user.username'
     oauth2_json_name_path: "OAuth2用户JSON中的完整名路径：user.name.full"
     oauth2_json_email_path: "OAuth2用户JSON中的邮件路径：user.email.primary"
-    oauth2_json_email_verified_path: "OAuth2 用户 JSON 中的用户邮件验证状态：user.email.verified"
     oauth2_json_avatar_path: "Oauth2用户JSON的头像路径：user.avatar_url"
     oauth2_email_verified: "如果OAuth2站点已验证邮件，请检查此项"
     oauth2_overrides_email: "每次登录时都会使用远程电子邮件覆盖Discourse电子邮件"

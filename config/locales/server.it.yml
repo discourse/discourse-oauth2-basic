@@ -24,7 +24,6 @@ it:
     oauth2_json_username_path: 'Percorso nel JSON dell''utente OAuth2 con il nome utente. ad es.: user.username'
     oauth2_json_name_path: "Percorso nel JSON dell'utente OAuth2 dell'utente per il nome completo: user.name.full"
     oauth2_json_email_path: "Percorso nel JSON dell'utente OAuth2 all'email dell'utente: user.email.primary"
-    oauth2_json_email_verified_path: "Percorso nell'OAuth2 Utente JSON allo stato di verificazione dell'email utente: user.email.verified"
     oauth2_json_avatar_path: "Percorso nel JSON dell'utente Oauth2 all'avatar dell'utente: user.avatar_url"
     oauth2_email_verified: "Controlla questo se il sito OAuth2 ha verificato l'email"
     oauth2_overrides_email: "Sostituisci l'email Discourse con l'email remota ad ogni accesso"
