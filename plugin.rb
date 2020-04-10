@@ -87,22 +87,39 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
     "Basic " + Base64.strict_encode64("#{SiteSetting.oauth2_client_id}:#{SiteSetting.oauth2_client_secret}")
   end
 
-  def walk_path(fragment, segments)
-    first_seg = segments[0]
+  def walk_path(fragment, segments, seg_index = 0)
+    first_seg = segments[seg_index]
     return if first_seg.blank? || fragment.blank?
     return nil unless fragment.is_a?(Hash) || fragment.is_a?(Array)
+    first_seg = segments[seg_index].scan(/([\d+])/).length > 0 ? first_seg.split("[")[0] : first_seg
     if fragment.is_a?(Hash)
       deref = fragment[first_seg] || fragment[first_seg.to_sym]
     else
-      deref = fragment[0] # Take just the first array for now, maybe later we can teach it to walk the array if we need to
+      array_index = 0
+      if (seg_index > 0)
+        last_index = segments[seg_index - 1].scan(/([\d+])/).flatten() || [0]
+        array_index = last_index.length > 0 ? last_index[0].to_i : 0
+      end
+      if fragment.any? && fragment.length >= array_index - 1
+        deref = fragment[array_index][first_seg]
+      else
+        deref = nil
+      end
     end
 
-    (deref.blank? || segments.size == 1) ? deref : walk_path(deref, segments[1..-1])
+    if (deref.blank? || seg_index == segments.size - 1)
+      deref
+    else
+      seg_index += 1
+      walk_path(deref, segments, seg_index)
+    end
   end
 
   def json_walk(result, user_json, prop)
     path = SiteSetting.public_send("oauth2_json_#{prop}_path")
     if path.present?
+      #this.[].that is the same as this.that, allows for both this[0].that and this.[0].that path styles
+      path = path.gsub(".[].", ".").gsub(".[", "[")
       segments = path.split('.')
       val = walk_path(user_json, segments)
       result[prop] = val if val.present?
