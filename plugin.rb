@@ -46,7 +46,7 @@ class ::OmniAuth::Strategies::Oauth2Basic < ::OmniAuth::Strategies::OAuth2
   end
 end
 
-class OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
+class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
   def name
     'oauth2_basic'
   end

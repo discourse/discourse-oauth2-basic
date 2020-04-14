@@ -1,31 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require 'json'
-
-# This is ugly... but it works!
-# Need to load plugin.rb to avoid:
-#
-# NameError:
-#   uninitialized constant OAuth2BasicAuthenticator
-#
-# And need to mock various methods to avoid:
-#
-# NoMethodError:
-#   undefined method `enabled_site_setting' for main:Object
-#
-# etc.
-
-def enabled_site_setting(arg)
-end
-
-def auth_provider(arg)
-end
-
-def register_css(arg)
-end
-
-require_relative '../plugin.rb'
 
 describe OAuth2BasicAuthenticator do
   context 'after_authenticate' do
