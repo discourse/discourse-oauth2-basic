@@ -195,6 +195,15 @@ describe OAuth2BasicAuthenticator do
     expect(result).to eq nil
   end
 
+  it 'can walk json and find values by index in an array' do
+    authenticator = OAuth2BasicAuthenticator.new
+    json_string = '{"emails":[{"value":"test@example.com"},{"value":"test2@example.com"}]}'
+    SiteSetting.oauth2_json_email_path = 'emails[1].value'
+    result = authenticator.json_walk({}, JSON.parse(json_string), :email)
+
+    expect(result).to eq "test2@example.com"
+  end
+
   it 'can walk json and download avatar' do
     authenticator = OAuth2BasicAuthenticator.new
     json_string = '{"user":{"avatar":"http://example.com/1.png"}}'
