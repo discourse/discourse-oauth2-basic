@@ -46,7 +46,6 @@ class ::OmniAuth::Strategies::Oauth2Basic < ::OmniAuth::Strategies::OAuth2
   end
 end
 
-
 if Gem::Version.new(Faraday::VERSION) > Gem::Version.new('1.0')
   require 'faraday/logging/formatter'
   class OAuth2FaradayFormatter < Faraday::Logging::Formatter
@@ -59,11 +58,11 @@ if Gem::Version.new(Faraday::VERSION) > Gem::Version.new('1.0')
         Body: #{env[:body]}
       LOG
     end
-    
+
     def response(env)
       warn <<~LOG
-        OAuth2 Debugging: response status #{env.status} 
-        
+        OAuth2 Debugging: response status #{env.status}
+
         From #{env.method.upcase} #{env.url.to_s}
 
         Headers: #{env.response_headers}
@@ -119,7 +118,7 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
                         end
 
                         if SiteSetting.oauth2_debug_auth && defined? OAuth2FaradayFormatter
-                          opts[:client_options][:connection_build] = lambda{ |builder|
+                          opts[:client_options][:connection_build] = lambda { |builder|
                             builder.response :logger, Rails.logger, { bodies: true, formatter: OAuth2FaradayFormatter }
 
                             # Default stack:
