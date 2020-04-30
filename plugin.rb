@@ -102,9 +102,18 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
                         }
                         opts[:authorize_options] = SiteSetting.oauth2_authorize_options.split("|").map(&:to_sym)
 
-                        if SiteSetting.oauth2_send_auth_header?
+                        if SiteSetting.oauth2_send_auth_header? && SiteSetting.oauth2_send_auth_body?
+                          # For maximum compatibility we include both header and body auth by default
+                          # This is a little unusual, and utilising multiple authentication methods
+                          # is technically disallowed by the spec (RFC2749 Section 5.2)
+                          opts[:client_options][:auth_scheme] = :request_body
                           opts[:token_params] = { headers: { 'Authorization' => basic_auth_header } }
+                        elsif SiteSetting.oauth2_send_auth_header?
+                          opts[:client_options][:auth_scheme] = :basic_auth
+                        else
+                          opts[:client_options][:auth_scheme] = :request_body
                         end
+
                         unless SiteSetting.oauth2_scope.blank?
                           opts[:scope] = SiteSetting.oauth2_scope
                         end
