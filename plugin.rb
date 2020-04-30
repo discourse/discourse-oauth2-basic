@@ -46,6 +46,34 @@ class ::OmniAuth::Strategies::Oauth2Basic < ::OmniAuth::Strategies::OAuth2
   end
 end
 
+
+if Gem::Version.new(Faraday::VERSION) > Gem::Version.new('1.0')
+  require 'faraday/logging/formatter'
+  class OAuth2FaradayFormatter < Faraday::Logging::Formatter
+    def request(env)
+      warn <<~LOG
+        OAuth2 Debugging: request #{env.method.upcase} #{env.url.to_s}
+
+        Headers: #{env.request_headers}
+
+        Body: #{env[:body]}
+      LOG
+    end
+    
+    def response(env)
+      warn <<~LOG
+        OAuth2 Debugging: response status #{env.status} 
+        
+        From #{env.method.upcase} #{env.url.to_s}
+
+        Headers: #{env.response_headers}
+
+        Body: #{env[:body]}
+      LOG
+    end
+  end
+end
+
 class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
   def name
     'oauth2_basic'
@@ -79,6 +107,16 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
                         end
                         unless SiteSetting.oauth2_scope.blank?
                           opts[:scope] = SiteSetting.oauth2_scope
+                        end
+
+                        if SiteSetting.oauth2_debug_auth && defined? OAuth2FaradayFormatter
+                          opts[:client_options][:connection_build] = lambda{ |builder|
+                            builder.response :logger, Rails.logger, { bodies: true, formatter: OAuth2FaradayFormatter }
+
+                            # Default stack:
+                            builder.request :url_encoded             # form-encode POST params
+                            builder.adapter Faraday.default_adapter  # make requests with Net::HTTP
+                          }
                         end
                       }
   end
