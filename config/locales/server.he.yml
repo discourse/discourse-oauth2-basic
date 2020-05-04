@@ -22,18 +22,18 @@ he:
     oauth2_user_json_url_method: 'שיטה שמשמשת לקבלת כתובת ה־JSON של המשתמש'
     oauth2_json_user_id_path: 'נתיב מזהה המשתמש ב־JSON של ה־OAuth2 של המשתמש. למשל: user.username'
     oauth2_json_username_path: 'נתיב שם המשתמש ב־JSON של ה־OAuth2 של המשתמש. למשל: user.username'
-    oauth2_json_name_path: "נתיב השם המלא של המשתמש ב־JSON של ה־OAuth2 של המשתמש. למשל: user.name.full"
-    oauth2_json_email_path: "נתיב כתובת הדוא״ל של המשתמש ב־JSON של ה־OAuth2 של המשתמש. למשל: user.email.primary"
+    oauth2_json_name_path: "נתיב ב־JSON משתמש OAuth2 לשם המלא של המשתמש. למשל: user.name.full"
+    oauth2_json_email_path: "נתיב ב־JSON משתמש OAuth2 לכתובת הדוא״ל של המשתמש. למשל: user.email"
     oauth2_json_email_verified_path: "נתיב למצב אימות כתובת הדוא״ל של המשתמש ב־JSON של ה־OAuth2 של המשתמש. למשל: user.email.verified.‏ oauth2_email_verified חייב להיות מושבת כדי שההגדרה הזו תהיה בתוקף"
     oauth2_json_avatar_path: "נתיב כתובת התמונה הייצוגית של המשתמש ב־JSON של ה־OAuth2 של המשתמש. למשל: user.avatar_url"
     oauth2_email_verified: "נא לבדוק אם אתר זה עם OAuth2 אימת את הדוא״ל"
     oauth2_overrides_email: "לדרוס את כתובת הדוא״ל של Discourse בכתובת הדוא״ל המרוחקת עם כל כניסה"
-    oauth2_send_auth_header: "שליחת האסימון ככותרת אימות של HTTP"
+    oauth2_send_auth_header: "שליחת פרטי גישה של לקוח בכותרת אימות (Authorization) של HTTP"
+    oauth2_send_auth_body: "שליחת פרטי גישה של לקוח בגוף הבקשה"
     oauth2_debug_auth: "לכלול פירוט עשיר לטובת ניפוי שגיאות ביומנים שלך"
     oauth2_authorize_options: "בעת בקשת אימות האפשרויות האלו"
     oauth2_scope: "בעת בקשת אימות תחום זה"
     oauth2_button_title: "הטקסט לכפתור ה־OAuth2"
-    oauth2_full_screen_login: "שימוש בחלון הדפדפן הראשי במקום בחלון קופץ לטובת כניסה"
     oauth2_allow_association_change: לאפשר למשתמשים לנתק ולחבר מחדש את חשבונות ה־Discourse שלהם מספק ה־OAuth2
     errors:
       oauth2_fetch_user_details: "oauth2_callback_user_id_path חייב להיות נוכח לטובת נטרול של oauth2_fetch_user_details"

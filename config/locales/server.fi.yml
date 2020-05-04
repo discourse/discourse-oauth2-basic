@@ -13,4 +13,3 @@ fi:
     oauth2_overrides_email: "Syrjäytä Discourse sähköposti etäsähköpostilla jokaisella sisäänkirjautumisella"
     oauth2_debug_auth: "Sisällytä logeihin laajat virheenkorjaustiedot"
     oauth2_button_title: "Teksti OAuth2 painiketta varten"
-    oauth2_full_screen_login: "Käytä selaimen pääikkunaa kirjautumiseen popup ikkunan sijaan"

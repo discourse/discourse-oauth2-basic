@@ -22,18 +22,18 @@ zh_CN:
     oauth2_user_json_url_method: '用于获取用户JSON URL的模式'
     oauth2_json_user_id_path: 'OAuth2用户JSON中的用户ID路径。例如：user.id'
     oauth2_json_username_path: 'OAuth2用户JSON中的用户名路径。例如：user.username'
-    oauth2_json_name_path: "OAuth2用户JSON中的完整名路径：user.name.full"
-    oauth2_json_email_path: "OAuth2用户JSON中的邮件路径：user.email.primary"
-    oauth2_json_email_verified_path: "OAuth2 用户 JSON 中的用户电子邮件验证状态的路径：user.email.verified。必须禁用 oauth2_email_validated 才能使此设置生效"
-    oauth2_json_avatar_path: "Oauth2用户JSON的头像路径：user.avatar_url"
+    oauth2_json_name_path: "OAuth2 User JSON中用户全名的路径。例如：user.name.full"
+    oauth2_json_email_path: "OAuth2 User JSON中用户邮件的路径。例如：user.email"
+    oauth2_json_email_verified_path: "OAuth2 User JSON中用户邮箱验证状态的路径。例如：user.email.verified。要使该设置生效，必须禁用oauth2_email_verified。"
+    oauth2_json_avatar_path: "Oauth2 User JSON中用户头像的路径。例如：user.avatar_url"
     oauth2_email_verified: "如果OAuth2站点已验证邮件，请检查此项"
     oauth2_overrides_email: "每次登录时都会使用远程电子邮件覆盖Discourse电子邮件"
-    oauth2_send_auth_header: "将令牌作为HTTP授权标头发送"
+    oauth2_send_auth_header: "在HTTP授权头中发送客户端证书"
+    oauth2_send_auth_body: "在请求的正文中发送客户端证书"
     oauth2_debug_auth: "在日志中包含丰富的调试信息"
     oauth2_authorize_options: "授权时请求这些选项"
     oauth2_scope: "授权请求此范围时"
     oauth2_button_title: "OAuth2按钮显示的文字"
-    oauth2_full_screen_login: "使用主浏览器窗口而非弹出窗口登录"
-    oauth2_allow_association_change: 允许用户从 OAuth2 提供商断开并重新连接他们的 Discourse 帐户
+    oauth2_allow_association_change: 允许用户从 OAuth2 提供商断开并重新连接他们的 Discourse 账户
     errors:
       oauth2_fetch_user_details: "禁用oauth2_fetch_user_details必须提供oauth2_callback_user_id_path"
