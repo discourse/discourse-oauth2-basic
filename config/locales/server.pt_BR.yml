@@ -6,6 +6,8 @@
 # https://www.transifex.com/projects/p/discourse-org/
 
 pt_BR:
+  login:
+    authenticator_error_fetch_user_details: "Não foi possível recuperar os detalhes do usuário. Você tem uma conta ativa?"
   site_settings:
     oauth2_enabled: "OAuth2 Personalizado está ativado"
     oauth2_client_id: 'ID do cliente para o OAuth2 personalizado'
