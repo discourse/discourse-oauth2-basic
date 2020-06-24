@@ -22,8 +22,11 @@ ca:
     oauth2_user_json_url_method: 'Mètode utilitzat per a obtenir l''URL de l''usuari JSON'
     oauth2_json_user_id_path: 'Camí en el JSON d''usuari OAuth2 a l''identificador d''usuari, p. ex.: user.id'
     oauth2_json_username_path: 'Camí en el JSON d''usuari OAuth2 al nom d''usuari, p. ex.: user.username'
+    oauth2_json_name_path: "Ruta d'accés en el JSON d'usuari OAuth2 al nom complet d'usuari. Per exemple: user.name.full"
+    oauth2_json_email_path: "Ruta d'accés en el JSON d'usuari OAuth2 al correu electrònic d'usuari. Per exemple: user.email"
     oauth2_email_verified: "Comprova-ho si el lloc web OAuth2 ha verificat el correu electrònic"
     oauth2_overrides_email: "Sobreescriu el correu electrònic de Discourse amb el correu remot en cada inici de sessió"
+    oauth2_send_auth_header: "Envia les credencials de client en una capçalera d’autorització HTTP"
     oauth2_debug_auth: "Inclou informació de depuració enriquida en els registres"
     oauth2_authorize_options: "En autoritzar sol·licita aquestes opcions"
     oauth2_scope: "En autoritzar sol·licita aquest abast"

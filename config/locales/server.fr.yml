@@ -7,26 +7,32 @@
 
 fr:
   login:
-    authenticator_error_fetch_user_details: "Impossible de récupérer vos informations d'utilisateur. Avez-vous un compte actif?"
+    authenticator_error_fetch_user_details: "Impossible de récupérer vos informations d'utilisateur. Avez-vous un compte actif ?"
   site_settings:
     oauth2_enabled: "OAuth2 personnalisé est activé"
     oauth2_client_id: 'Client ID pour OAuth2 personnalisé'
     oauth2_client_secret: 'Client secret pour OAuth2 personnalisé'
     oauth2_authorize_url: 'Authorization URL pour OAuth2'
     oauth2_token_url: 'Token URL pour OAuth2'
-    oauth2_token_url_method: 'Méthode utilisé pour récupérer le Token URL'
-    oauth2_callback_user_id_path: 'Chemin dans la réponse du jeton à l''ID utilisateur. ex: params.info.uuid'
+    oauth2_token_url_method: 'Méthode utilisée pour récupérer le Token URL'
+    oauth2_callback_user_id_path: 'Chemin dans la réponse du jeton à l''ID utilisateur. P. ex. : params.info.uuid'
     oauth2_callback_user_info_paths: 'Chemins dans la réponse de jeton aux autres propriétés de l''utilisateur. Les propriétés prises en charge sont nom, nom d''utilisateur, email, email_verified et avatar. Le format est la propriété: chemin, par exemple: nom: params.info.name'
-    oauth2_fetch_user_details: "Récupérer l'utilisateur JSON pour OAuth2"
-    oauth2_user_json_url: 'URL pour récupérer JSON utilisateur pour OAuth2 (noter que :id sera remplacé avec l''id retourné par l''appel OAuth et :token avec l''id token)'
-    oauth2_user_json_url_method: 'Méthode utilisé pour récupérer le JSON URL utilisateur'
-    oauth2_json_user_id_path: 'Chemin d''accès dans le JSON Utilisateur OAuth2 vers l''id utilisateur. P.ex : user.id'
-    oauth2_json_username_path: 'Chemin d''accès dans le JSON Utilisateur OAuth2 vers le nom d''utilisateur. P.ex : user.username'
+    oauth2_fetch_user_details: "Récupérer le JSON utilisateur pour OAuth2"
+    oauth2_user_json_url: 'URL pour récupérer le JSON utilisateur pour OAuth2 (notez que :id sera remplacé avec l''ID retourné par l''appel OAuth et :token avec l''ID token)'
+    oauth2_user_json_url_method: 'Méthode utilisée pour récupérer l''URL du JSON utilisateur'
+    oauth2_json_user_id_path: 'Chemin dans le JSON utilisateur OAuth2 vers l''ID utilisateur. P. ex : user.id'
+    oauth2_json_username_path: 'Chemin dans le JSON utilisateur OAuth2 vers le nom d''utilisateur. P. ex : user.username'
+    oauth2_json_name_path: "Chemin dans le JSON utilisateur OAuth2 vers le nom complet de l'utilisateur. P. ex : user.name.full"
+    oauth2_json_email_path: "Chemin dans le JSON utilisateur OAuth2 vers l'adresse courriel de l'utilisateur. P. ex : user.email"
+    oauth2_json_email_verified_path: "Chemin dans le JSON utilisateur OAuth2 vers l'état de vérification de l'adresse courriel de l'utilisateur. P. ex : user.email.verified. oauth2_email_verified doit être désactivé pour que ce paramètre ait un effet."
+    oauth2_json_avatar_path: "Chemin dans le JSON utilisateur OAuth2 vers l'avatar de l'utilisateur. P. ex : user.avatar_url"
     oauth2_email_verified: "Cocher ceci si le site OAuth2 a vérifié ce courriel"
     oauth2_overrides_email: "Remplacer le courriel Discourse avec le courriel remote à chaque connexion"
+    oauth2_send_auth_header: "Envoyer les identifiants du client dans une entête de requête HTTP Authorization"
+    oauth2_send_auth_body: "Envoyer les identifiants du client dans le corps de la requête"
     oauth2_debug_auth: "Inclure des informations de debug étendues dans vos logs"
-    oauth2_authorize_options: "Lors de l'authorisation demander ces options"
-    oauth2_scope: "Lors de l'authorisation demander ce champ d'application (scope)"
+    oauth2_authorize_options: "Lors de l’autorisation, demander ces options"
+    oauth2_scope: "Lors de l’autorisation, demander ce champ d'application (scope)"
     oauth2_button_title: "Le texte pour le bouton OAuth2"
     oauth2_allow_association_change: Autoriser les utilisateurs à déconnecter et à reconnecter leurs comptes Discourse du fournisseur OAuth2
     errors:
