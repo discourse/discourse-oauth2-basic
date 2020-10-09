@@ -1,6 +1,1 @@
-.bundle/
-log/*.log
-pkg/
-auto_generated
-.DS_Store
-*.swp
+node_modules
