@@ -4,4 +4,11 @@
 # To work with us on translations, join this project:
 # https://translate.discourse.org/
 
-ja: 
+ja:
+  login:
+    authenticator_error_fetch_user_details: "ユーザー情報を取得できませんでした。アクティブなアカウントをお持ちですか？"
+  site_settings:
+    oauth2_enabled: "カスタム OAuth2 は有効です"
+    oauth2_client_id: 'カスタムOAuth2のクライアントID'
+    oauth2_client_secret: 'カスタムOAuth2のクライアントシークレット'
+    oauth2_authorize_url: 'OAuth2の認証URL'
