@@ -10,14 +10,15 @@ on:
 jobs:
   build:
     name: ${{ matrix.build_type }}
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
+    container: discourse/discourse_test:release
     timeout-minutes: 60
 
     env:
       DISCOURSE_HOSTNAME: www.example.com
       RUBY_GLOBAL_METHOD_CACHE_SIZE: 131072
       RAILS_ENV: test
-      PGHOST: localhost
+      PGHOST: postgres
       PGUSER: discourse
       PGPASSWORD: discourse
 
@@ -26,8 +27,7 @@ jobs:
 
       matrix:
         build_type: ["backend", "frontend"]
-        os: [ubuntu-latest]
-        ruby: ["2.6"]
+        ruby: ["2.7"]
         postgres: ["12"]
         redis: ["4.x"]
 
@@ -47,13 +47,13 @@ jobs:
           --health-retries 5
 
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
         with:
           repository: discourse/discourse
           fetch-depth: 1
 
       - name: Install plugin
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
         with:
           path: plugins/${{ github.event.repository.name }}
           fetch-depth: 1
@@ -75,46 +75,30 @@ jobs:
           git config --global user.email "ci@ci.invalid"
           git config --global user.name "Discourse CI"
 
-      - name: Setup packages
-        run: |
-          sudo apt-get update
-          sudo apt-get -yqq install postgresql-client libpq-dev gifsicle jpegoptim optipng jhead
-          wget -qO- https://raw.githubusercontent.com/discourse/discourse_docker/master/image/base/install-pngquant | sudo sh
-
-      - name: Update imagemagick
-        if: matrix.build_type == 'backend'
-        run: |
-          wget https://raw.githubusercontent.com/discourse/discourse_docker/master/image/base/install-imagemagick
-          chmod +x install-imagemagick
-          sudo ./install-imagemagick
-
       - name: Setup redis
         uses: shogo82148/actions-setup-redis@v1
         with:
           redis-version: ${{ matrix.redis }}
 
-      - name: Setup ruby
-        uses: actions/setup-ruby@v1
-        with:
-          ruby-version: ${{ matrix.ruby }}
-
-      - name: Setup bundler
-        run: |
-          gem install bundler -v 2.1.4 --no-doc
-          bundle config deployment 'true'
-          bundle config without 'development'
-
       - name: Bundler cache
         uses: actions/cache@v2
-        id: bundler-cache
         with:
           path: vendor/bundle
-          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          key: ${{ runner.os }}-${{ matrix.ruby }}-gem-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
-            ${{ runner.os }}-gem-
+            ${{ runner.os }}-${{ matrix.ruby }}-gem-
 
       - name: Setup gems
-        run: bundle install --jobs 4
+        run: |
+          bundle config --local path vendor/bundle
+          bundle config --local deployment true
+          bundle config --local without development
+          bundle install --jobs 4
+          bundle clean
+
+      - name: Lint English locale
+        if: matrix.build_type == 'backend'
+        run: bundle exec ruby script/i18n_lint.rb "plugins/${{ github.event.repository.name }}/locales/{client,server}.en.yml"
 
       - name: Get yarn cache directory
         id: yarn-cache-dir
@@ -130,7 +114,7 @@ jobs:
             ${{ runner.os }}-${{ matrix.os }}-yarn-
 
       - name: Yarn install
-        run: yarn install --dev
+        run: yarn install
 
       - name: Migrate database
         run: |
