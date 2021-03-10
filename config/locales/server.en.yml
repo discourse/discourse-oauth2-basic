@@ -7,7 +7,7 @@ en:
     oauth2_client_id: 'Client ID for custom OAuth2'
     oauth2_client_secret: 'Client Secret for custom OAuth2'
     oauth2_authorize_url: 'Authorization URL for OAuth2'
-    oauth2_authorize_signup_url: '(optional) Alternate authorization URL used when the "Sign Up" button is used'
+    oauth2_authorize_signup_url: '(optional) Alternative authorization URL used when the "Sign Up" button is used'
     oauth2_token_url: 'Token URL for OAuth2'
     oauth2_token_url_method: 'Method used to fetch the Token URL'
     oauth2_callback_user_id_path: 'Path in the token response to the user id. eg: params.info.uuid'
