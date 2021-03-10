@@ -166,10 +166,32 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
     if path.present?
       #this.[].that is the same as this.that, allows for both this[0].that and this.[0].that path styles
       path = path.gsub(".[].", ".").gsub(".[", "[")
-      segments = path.split('.')
+      segments = parse_segments(path)
       val = walk_path(user_json, segments)
       result[prop] = val if val.present?
     end
+  end
+
+  def parse_segments(path)
+    segments = [+""]
+    quoted = false
+    escaped = false
+
+    path.split("").each do |char|
+      next_char_escaped = false
+      if !escaped && (char == '"')
+        quoted = !quoted
+      elsif !escaped && !quoted && (char == '.')
+        segments.append +""
+      elsif !escaped && (char == '\\')
+        next_char_escaped = true
+      else
+        segments.last << char
+      end
+      escaped = next_char_escaped
+    end
+
+    segments
   end
 
   def log(info)

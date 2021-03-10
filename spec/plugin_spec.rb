@@ -177,6 +177,38 @@ describe OAuth2BasicAuthenticator do
     expect(result).to eq "test@example.com"
   end
 
+  it 'allows keys containing dots, if wrapped in quotes' do
+    authenticator = OAuth2BasicAuthenticator.new
+    json_string = '{"www.example.com/uid": "myuid"}'
+    SiteSetting.oauth2_json_user_id_path = '"www.example.com/uid"'
+    result = authenticator.json_walk({}, JSON.parse(json_string), :user_id)
+
+    expect(result).to eq "myuid"
+  end
+
+  it 'allows keys containing dots, if escaped' do
+    authenticator = OAuth2BasicAuthenticator.new
+    json_string = '{"www.example.com/uid": "myuid"}'
+    SiteSetting.oauth2_json_user_id_path = 'www\.example\.com/uid'
+    result = authenticator.json_walk({}, JSON.parse(json_string), :user_id)
+
+    expect(result).to eq "myuid"
+  end
+
+  it 'allows keys containing literal backslashes, if escaped' do
+    authenticator = OAuth2BasicAuthenticator.new
+    # This 'single quoted heredoc' syntax means we don't have to escape backslashes in Ruby
+    # What you see is exactly what the user would enter in the site settings
+    json_string = <<~'_'.chomp
+      {"www.example.com/uid\\": "myuid"}
+    _
+    SiteSetting.oauth2_json_user_id_path = <<~'_'.chomp
+      www\.example\.com/uid\\
+    _
+    result = authenticator.json_walk({}, JSON.parse(json_string), :user_id)
+    expect(result).to eq "myuid"
+  end
+
   it 'can walk json that contains an array' do
     authenticator = OAuth2BasicAuthenticator.new
     json_string = '{"email":"test@example.com","identities":[{"user_id":"123456789","provider":"auth0","isSocial":false}]}'
