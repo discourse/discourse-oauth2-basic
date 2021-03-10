@@ -101,6 +101,11 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
                         }
                         opts[:authorize_options] = SiteSetting.oauth2_authorize_options.split("|").map(&:to_sym)
 
+                        if SiteSetting.oauth2_authorize_signup_url.present? &&
+                            ActionDispatch::Request.new(env).params["signup"].present?
+                          opts[:client_options][:authorize_url] = SiteSetting.oauth2_authorize_signup_url
+                        end
+
                         if SiteSetting.oauth2_send_auth_header? && SiteSetting.oauth2_send_auth_body?
                           # For maximum compatibility we include both header and body auth by default
                           # This is a little unusual, and utilising multiple authentication methods

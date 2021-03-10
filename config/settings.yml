@@ -5,6 +5,7 @@ login:
   oauth2_client_id: ''
   oauth2_client_secret: ''
   oauth2_authorize_url: ''
+  oauth2_authorize_signup_url: ''
   oauth2_token_url: ''
   oauth2_token_url_method:
     default: 'POST'
