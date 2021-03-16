@@ -12,6 +12,7 @@ sv:
     oauth2_client_id: 'Klient-ID för anpassad OAuth2'
     oauth2_client_secret: 'Klienthemlighet för anpassad OAuth2'
     oauth2_authorize_url: 'Autoriserings-URL för OAuth2'
+    oauth2_authorize_signup_url: '(valfritt) Alternativ auktoriserings-URL som används när knappen "Registrera dig" används'
     oauth2_token_url: 'Bevis-URL för OAuth2'
     oauth2_token_url_method: 'Metod som används för att hämta bevis-URL'
     oauth2_callback_user_id_path: 'Sökväg i bevissvaret på användar-ID. t.ex. params.info.uuid'
