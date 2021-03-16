@@ -12,6 +12,7 @@ he:
     oauth2_client_id: 'מזהה לקוח ל־OAuth2 בהתאמה אישית'
     oauth2_client_secret: 'סוד לקוח ל־OAuth2 בהתאמה אישית'
     oauth2_authorize_url: 'כתובת אימות ל־OAuth2'
+    oauth2_authorize_signup_url: '(רשות) כתובת חלופית להרשאה בה ייעשה שימוש עם לחיצה על הכפתור „הרשמה”'
     oauth2_token_url: 'כתובת אסימון ל־OAuth2'
     oauth2_token_url_method: 'שיטה שמשמשת לקבלת כתובת האסימון'
     oauth2_callback_user_id_path: 'נתיב בתגובת האסימון למזהה המשתמש, למשל: params.info.uuid'

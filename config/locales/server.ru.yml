@@ -12,6 +12,7 @@ ru:
     oauth2_client_id: 'Идентификатор клиента для пользовательского OAuth2'
     oauth2_client_secret: 'Секрет клиента для пользовательских OAuth2'
     oauth2_authorize_url: 'URL авторизации для OAuth2'
+    oauth2_authorize_signup_url: '(необязательно) Альтернативный URL-адрес авторизации, используемый при задействовании кнопки ''Зарегистрироваться'''
     oauth2_token_url: 'URL токена для OAuth2'
     oauth2_token_url_method: 'Метод, используемый для получения URL токена'
     oauth2_callback_user_id_path: 'Путь в ответе токена к идентификатору пользователя. например: params.info.uuid'
