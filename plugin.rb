@@ -46,30 +46,28 @@ class ::OmniAuth::Strategies::Oauth2Basic < ::OmniAuth::Strategies::OAuth2
   end
 end
 
-if Gem::Version.new(Faraday::VERSION) > Gem::Version.new('1.0')
-  require 'faraday/logging/formatter'
-  class OAuth2FaradayFormatter < Faraday::Logging::Formatter
-    def request(env)
-      warn <<~LOG
-        OAuth2 Debugging: request #{env.method.upcase} #{env.url.to_s}
+require 'faraday/logging/formatter'
+class OAuth2FaradayFormatter < Faraday::Logging::Formatter
+  def request(env)
+    warn <<~LOG
+      OAuth2 Debugging: request #{env.method.upcase} #{env.url.to_s}
 
-        Headers: #{env.request_headers}
+      Headers: #{env.request_headers}
 
-        Body: #{env[:body]}
-      LOG
-    end
+      Body: #{env[:body]}
+    LOG
+  end
 
-    def response(env)
-      warn <<~LOG
-        OAuth2 Debugging: response status #{env.status}
+  def response(env)
+    warn <<~LOG
+      OAuth2 Debugging: response status #{env.status}
 
-        From #{env.method.upcase} #{env.url.to_s}
+      From #{env.method.upcase} #{env.url.to_s}
 
-        Headers: #{env.response_headers}
+      Headers: #{env.response_headers}
 
-        Body: #{env[:body]}
-      LOG
-    end
+      Body: #{env[:body]}
+    LOG
   end
 end
 
@@ -275,15 +273,6 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
 end
 
 auth_provider title_setting: "oauth2_button_title",
-              authenticator: OAuth2BasicAuthenticator.new,
-              message: "OAuth2"
-
-register_css <<CSS
-
-  button.btn-social.oauth2_basic {
-    background-color: #6d6d6d;
-  }
-
-CSS
+              authenticator: OAuth2BasicAuthenticator.new
 
 load File.expand_path("../lib/validators/oauth2_basic/oauth2_fetch_user_details_validator.rb", __FILE__)
