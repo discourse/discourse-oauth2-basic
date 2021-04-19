@@ -47,3 +47,5 @@ login:
     client: true
   oauth2_allow_association_change:
     default: false
+  oauth2_disable_csrf:
+    default: false

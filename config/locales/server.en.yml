@@ -30,6 +30,7 @@ en:
     oauth2_scope: "When authorizing request this scope"
     oauth2_button_title: "The text for the OAuth2 button"
     oauth2_allow_association_change: Allow users to disconnect and reconnect their Discourse accounts from the OAuth2 provider
+    oauth2_disable_csrf: "Disable CSRF check"
 
     errors:
       oauth2_fetch_user_details: "oauth2_callback_user_id_path must be present to disable oauth2_fetch_user_details"
