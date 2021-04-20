@@ -35,5 +35,6 @@ sv:
     oauth2_scope: "Begär detta omfång vid auktorisering"
     oauth2_button_title: "Texten för OAuth2-knappen"
     oauth2_allow_association_change: Låt användarna frånkoppla och ansluta sina Discourse-konton igen från OAuth2-leverantören
+    oauth2_disable_csrf: "Inaktivera CSRF-kontroll"
     errors:
       oauth2_fetch_user_details: "oauth2_callback_user_id_path måste vara närvarande för att inaktivera oauth2_fetch_user_details"
