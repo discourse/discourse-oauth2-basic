@@ -49,3 +49,4 @@ login:
     default: false
   oauth2_disable_csrf:
     default: false
+    hidden: true
