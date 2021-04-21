@@ -69,6 +69,17 @@ describe OAuth2BasicAuthenticator do
       expect(result.email_valid).to eq(true)
     end
 
+    it 'handles true/false strings from identity provider' do
+      SiteSetting.oauth2_email_verified = false
+      authenticator.stubs(:fetch_user_details).returns(email: user.email, email_verified: 'true')
+      result = authenticator.after_authenticate(auth)
+      expect(result.email_valid).to eq(true)
+
+      authenticator.stubs(:fetch_user_details).returns(email: user.email, email_verified: 'false')
+      result = authenticator.after_authenticate(auth)
+      expect(result.email_valid).to eq(false)
+    end
+
     context "fetch_user_details" do
       before(:each) do
         SiteSetting.oauth2_fetch_user_details = true

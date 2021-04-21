@@ -237,8 +237,11 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
   end
 
   def primary_email_verified?(auth)
-    auth['info']['email_verified'] ||
-    SiteSetting.oauth2_email_verified
+    return true if SiteSetting.oauth2_email_verified
+    verified = auth['info']['email_verified']
+    verified = true if verified == "true"
+    verified = false if verified == "false"
+    verified
   end
 
   def always_update_user_email?
