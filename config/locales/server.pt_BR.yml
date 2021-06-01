@@ -12,8 +12,12 @@ pt_BR:
     oauth2_client_id: 'ID do cliente para o OAuth2 personalizado'
     oauth2_client_secret: 'Segredo do cliente para o OAuth2 personalizado'
     oauth2_authorize_url: 'URL de autorização para o OAuth2'
+    oauth2_authorize_signup_url: '(opcional) URL de autorização alternativa usada quando o botão “Inscrever-se” é usado'
     oauth2_token_url: 'URL do token para o OAuth2'
     oauth2_token_url_method: 'Método usado para buscar o URL do token'
+    oauth2_callback_user_id_path: 'Caminho no JSON do Usuário do OAuth2 para o ID do usuário. ex: params.info.uuid'
+    oauth2_callback_user_info_paths: 'Caminhos na resposta do token para outras propriedades do usuário. As propriedades suportadas são nome, nome de usuário, email, email_verified e avatar. O formato é propriedade: caminho, por exemplo: nome: params.info.name'
+    oauth2_fetch_user_details: "Buscar JSON do usuário para OAuth2"
     oauth2_user_json_url: 'URL para buscar o usuário JSON para o OAuth2 (observe que substituímos :id com o id retornado pela chamada OAuth e :token com o id do token)'
     oauth2_user_json_url_method: 'Método usado para buscar o URL JSON do usuário'
     oauth2_json_user_id_path: 'Caminho no JSON do Usuário do OAuth2 para o ID do usuário. ex: user.id'
