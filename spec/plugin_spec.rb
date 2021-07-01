@@ -122,6 +122,31 @@ describe OAuth2BasicAuthenticator do
         result = authenticator.after_authenticate(auth)
         expect(result.failed).to eq(true)
       end
+
+      describe 'fetch custom attributes' do
+        after { DiscoursePluginRegistry.reset! }
+
+        let(:response) do
+          {
+            status: 200,
+            body: '{"account":{"email":"newemail@example.com","custom_attr":"received"}}'
+          }
+        end
+
+        it 'stores custom attributes in the user associated account' do
+          custom_path = 'account.custom_attr'
+          DiscoursePluginRegistry.register_oauth2_basic_additional_json_path(
+            custom_path,
+            Plugin::Instance.new
+          )
+          stub_request(:get, SiteSetting.oauth2_user_json_url).to_return(response)
+
+          result = authenticator.after_authenticate(auth)
+          associated_account = UserAssociatedAccount.last
+
+          expect(associated_account.extra[custom_path]).to eq("received")
+        end
+      end
     end
 
     context 'avatar downloading' do

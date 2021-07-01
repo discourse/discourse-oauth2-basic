@@ -71,6 +71,10 @@ class OAuth2FaradayFormatter < Faraday::Logging::Formatter
   end
 end
 
+# You should use this register if you want to add custom paths to traverse the user details JSON.
+# We'll store the value in the user associated account's extra attribute hash using the full path as the key.
+DiscoursePluginRegistry.define_filtered_register :oauth2_basic_additional_json_paths
+
 class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
   def name
     'oauth2_basic'
@@ -164,8 +168,8 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
     end
   end
 
-  def json_walk(result, user_json, prop)
-    path = SiteSetting.public_send("oauth2_json_#{prop}_path")
+  def json_walk(result, user_json, prop, custom_path: nil)
+    path = custom_path || SiteSetting.public_send("oauth2_json_#{prop}_path")
     if path.present?
       #this.[].that is the same as this.that, allows for both this[0].that and this.[0].that path styles
       path = path.gsub(".[].", ".").gsub(".[", "[")
@@ -229,6 +233,11 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
         json_walk(result, user_json, :email)
         json_walk(result, user_json, :email_verified)
         json_walk(result, user_json, :avatar)
+
+        DiscoursePluginRegistry.oauth2_basic_additional_json_paths.each do |detail|
+          prop = "extra:#{detail}"
+          json_walk(result, user_json, prop, custom_path: detail)
+        end
       end
       result
     else
@@ -258,6 +267,10 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
         auth['info']['image'] = fetched_user_details[:avatar] if fetched_user_details[:avatar]
         ['name', 'email', 'email_verified'].each do |property|
           auth['info'][property] = fetched_user_details[property.to_sym] if fetched_user_details[property.to_sym]
+        end
+
+        DiscoursePluginRegistry.oauth2_basic_additional_json_paths.each do |detail|
+          auth['extra'][detail] = fetched_user_details["extra:#{detail}"]
         end
       else
         result = Auth::Result.new
