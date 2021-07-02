@@ -124,7 +124,7 @@ describe OAuth2BasicAuthenticator do
       end
 
       describe 'fetch custom attributes' do
-        after { DiscoursePluginRegistry.reset! }
+        after { DiscoursePluginRegistry.reset_register!(:oauth2_basic_additional_json_paths) }
 
         let(:response) do
           {
@@ -133,7 +133,7 @@ describe OAuth2BasicAuthenticator do
           }
         end
 
-        xit 'stores custom attributes in the user associated account' do
+        it 'stores custom attributes in the user associated account' do
           custom_path = 'account.custom_attr'
           DiscoursePluginRegistry.register_oauth2_basic_additional_json_path(
             custom_path,
