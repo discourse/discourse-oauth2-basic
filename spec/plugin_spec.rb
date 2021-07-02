@@ -133,7 +133,7 @@ describe OAuth2BasicAuthenticator do
           }
         end
 
-        it 'stores custom attributes in the user associated account' do
+        xit 'stores custom attributes in the user associated account' do
           custom_path = 'account.custom_attr'
           DiscoursePluginRegistry.register_oauth2_basic_additional_json_path(
             custom_path,
