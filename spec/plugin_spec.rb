@@ -191,7 +191,7 @@ describe OAuth2BasicAuthenticator do
         }.to change { job_klass.jobs.count }.by(0)
 
         expect {
-          authenticator.after_create_account(user, auth_result.session_data)
+          authenticator.after_create_account(user, auth_result)
         }.to change { job_klass.jobs.count }.by(1)
 
         job_args = job_klass.jobs.last['args'].first
