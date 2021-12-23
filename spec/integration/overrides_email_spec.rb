@@ -30,7 +30,7 @@ describe "OAuth2 Overrides Email", type: :request do
     )
   end
 
-  it 'updated user email if enabled' do
+  it 'updates user email if enabled' do
     expect(user.reload.email).to eq(initial_email)
 
     get "/auth/oauth2_basic/callback"
