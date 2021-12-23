@@ -30,7 +30,7 @@ describe "OAuth2 Overrides Email", type: :request do
     )
   end
 
-  it 'updates user email if enabled' do
+  it "doesn't update email by default" do
     expect(user.reload.email).to eq(initial_email)
 
     get "/auth/oauth2_basic/callback"
@@ -38,7 +38,9 @@ describe "OAuth2 Overrides Email", type: :request do
     expect(session[:current_user_id]).to eq(user.id)
 
     expect(user.reload.email).to eq(initial_email)
+  end
 
+  it 'updates user email if enabled' do
     SiteSetting.oauth2_overrides_email = true
 
     get "/auth/oauth2_basic/callback"
