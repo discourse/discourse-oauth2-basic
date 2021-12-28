@@ -26,7 +26,6 @@ ko:
     oauth2_json_email_verified_path: "OAuth2 사용자 JSON의 경로를 사용자의 이메일 확인 상태로 지정하십시오. 예 : user.email.verified. 이 설정을 적용하려면 oauth2_email_verified를 비활성화해야합니다"
     oauth2_json_avatar_path: "Oauth2 사용자 JSON에서 사용자 아바타의 경로입니다. 예 : user.avatar_url"
     oauth2_email_verified: "OAuth2 사이트에서 이메일을 확인한 경우이를 확인하십시오."
-    oauth2_overrides_email: "매번 로그인 할 때마다 원격 이메일로 Discourse 이메일을 덮어 씁니다."
     oauth2_debug_auth: "로그에 풍부한 디버깅 정보 포함"
     oauth2_authorize_options: "요청을 승인 할 때 이러한 옵션"
     oauth2_scope: "이 범위 요청을 승인 할 때"
