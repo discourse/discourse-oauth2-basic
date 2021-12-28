@@ -23,7 +23,6 @@ pt_BR:
     oauth2_json_user_id_path: 'Caminho no JSON do Usuário do OAuth2 para o ID do usuário. ex: user.id'
     oauth2_json_username_path: 'Caminho no JSON do Usuário do OAuth2 para o nome de usuário. ex: user.username'
     oauth2_email_verified: "Verificar se o site do OAuth2 confirmou o e-mail"
-    oauth2_overrides_email: "Substituir o e-mail do Discourse pelo e-mail remoto em cada login"
     oauth2_debug_auth: "Incluir informações de depuração avançadas em seus registros"
     oauth2_authorize_options: "Ao autorizar, solicite estas opções"
     oauth2_scope: "Ao autorizar, solicite este escopo"

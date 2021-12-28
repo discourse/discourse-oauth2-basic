@@ -22,7 +22,6 @@ tr_TR:
     oauth2_json_user_id_path: 'OAuth2 Kullanıcı JSON içindeki kullanıcı kimliğine giden yol. ör .: user.id'
     oauth2_json_username_path: 'OAuth2 Kullanıcı JSON içindeki kullanıcı adına giden yol. ör. kullanıcı.kullaniciadi'
     oauth2_email_verified: "OAuth2 sitesi e-postayı doğruladıysa bunu kontrol edin"
-    oauth2_overrides_email: "Her girişte uzaktan e-posta ile Discourse e-postasını geçersiz kıl"
     oauth2_debug_auth: "Günlüklerinize zengin hata ayıklama bilgileri ekleyin"
     oauth2_authorize_options: "Yetkilendirirken bu seçenekleri isteyin"
     oauth2_scope: "Yetkilendirirken bu kapsamı isteyin"
