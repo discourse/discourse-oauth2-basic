@@ -5,3 +5,7 @@
 # https://translate.discourse.org/
 
 hu:
+  js:
+    login:
+      oauth2_basic:
+        name: "OAuth 2"
