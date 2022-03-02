@@ -6,8 +6,6 @@
 # authors: Robin Ward
 # url: https://github.com/discourse/discourse-oauth2-basic
 
-require_dependency 'auth/oauth2_authenticator.rb'
-
 enabled_site_setting :oauth2_enabled
 
 class ::OmniAuth::Strategies::Oauth2Basic < ::OmniAuth::Strategies::OAuth2
