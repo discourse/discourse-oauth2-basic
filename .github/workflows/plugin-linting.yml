@@ -50,7 +50,10 @@ jobs:
 
       - name: Ember template lint
         if: ${{ always() }}
-        run: yarn ember-template-lint assets/javascripts
+        run: |
+          if [ 0 -lt $(find assets/javascripts -type f -name "*.hbs" 2> /dev/null | wc -l) ]; then
+            yarn ember-template-lint assets/javascripts
+          fi
 
       - name: Rubocop
         if: ${{ always() }}
