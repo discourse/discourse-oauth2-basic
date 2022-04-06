@@ -3,4 +3,3 @@ en:
     login:
       oauth2_basic:
         name: "OAuth 2"
-      

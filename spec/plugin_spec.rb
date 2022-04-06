@@ -32,14 +32,14 @@ describe OAuth2BasicAuthenticator do
       expect(result.email_valid).to eq(true)
     end
 
-    it 'doesnt validate user email if provider hasnt verified' do
+    it "doesn't validate user email if provider hasn't verified" do
       SiteSetting.oauth2_email_verified = false
       authenticator.stubs(:fetch_user_details).returns(email: user.email, email_verified: nil)
       result = authenticator.after_authenticate(auth)
       expect(result.email_valid).to eq(false)
     end
 
-    it 'doesnt affect the site setting' do
+    it "doesn't affect the site setting" do
       SiteSetting.oauth2_email_verified = true
       authenticator.stubs(:fetch_user_details).returns(email: user.email, email_verified: false)
       result = authenticator.after_authenticate(auth)
@@ -300,7 +300,7 @@ describe OAuth2BasicAuthenticator do
       expect(strategy.uid).to eq 'e028b1b918853eca7fba208a9d7e9d29a6e93c57'
     end
 
-    it 'can retrive user properties from access token callback' do
+    it 'can retrieve user properties from access token callback' do
       strategy.stubs(:access_token).returns(access_token)
       expect(strategy.info['name']).to eq 'Sammy the Shark'
       expect(strategy.info['email']).to eq 'sammy@digitalocean.com'
