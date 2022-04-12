@@ -9,6 +9,6 @@ bs_BA:
     authenticator_error_fetch_user_details: "Nije moguće dohvatiti vaše korisničke podatke. Imate li aktivan račun?"
   site_settings:
     oauth2_enabled: "Prilagođeni OAuth2 je omogućen"
-    oauth2_client_id: 'ID klijenta za prilagođeni OAuth2'
-    oauth2_client_secret: 'Tajna klijenta za prilagođeni OAuth2'
-    oauth2_authorize_url: 'URL autorizacije za OAuth2'
+    oauth2_client_id: "ID klijenta za prilagođeni OAuth2"
+    oauth2_client_secret: "Tajna klijenta za prilagođeni OAuth2"
+    oauth2_authorize_url: "URL autorizacije za OAuth2"

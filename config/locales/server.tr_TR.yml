@@ -9,18 +9,18 @@ tr_TR:
     authenticator_error_fetch_user_details: "Kullanıcı ayrıntılarınız görüntülenemedi. Aktif bir hesabınız var mı?"
   site_settings:
     oauth2_enabled: "Özel OAuth2 etkin"
-    oauth2_client_id: 'Özel OAuth2 için müşteri kimliği'
-    oauth2_client_secret: 'Özel OAuth2 için Sırrı İstemci '
-    oauth2_authorize_url: 'OAuth2 için yetkilendirme URL&#39;si'
-    oauth2_token_url: 'OAuth2 için Token URL'
-    oauth2_token_url_method: 'Token URL''sini getirmek için kullanılan yöntem'
-    oauth2_callback_user_id_path: 'Token yanıtındaki kullanıcı kimliğine giden yol. örneğin: params.info.uuid'
-    oauth2_callback_user_info_paths: 'Token yanıtındaki diğer kullanıcı özelliklerine giden yollar. Desteklenen özellikler; reklam, kullanıcı adı, e-posta, doğrulanmış e-posta ve avatardır. Biçim özellikleri: yol, tipik: ad: params.info.name'
+    oauth2_client_id: "Özel OAuth2 için müşteri kimliği"
+    oauth2_client_secret: "Özel OAuth2 için Sırrı İstemci "
+    oauth2_authorize_url: "OAuth2 için yetkilendirme URL&#39;si"
+    oauth2_token_url: "OAuth2 için Token URL"
+    oauth2_token_url_method: "Token URL'sini getirmek için kullanılan yöntem"
+    oauth2_callback_user_id_path: "Token yanıtındaki kullanıcı kimliğine giden yol. örneğin: params.info.uuid"
+    oauth2_callback_user_info_paths: "Token yanıtındaki diğer kullanıcı özelliklerine giden yollar. Desteklenen özellikler; reklam, kullanıcı adı, e-posta, doğrulanmış e-posta ve avatardır. Biçim özellikleri: yol, tipik: ad: params.info.name"
     oauth2_fetch_user_details: "OAuth2  için JSON kullanıcısı getir"
-    oauth2_user_json_url: 'OAuth2 için JSON kullanıcısını getirecek URL (not: değiştirdiğimiz: OAuth çağrısı tarafından döndürülen kimliğe sahip id ve: belirteç kimliğine sahip token)'
-    oauth2_user_json_url_method: 'Kullanıcı JSON URL''sini getirmek için kullanılan yöntem'
-    oauth2_json_user_id_path: 'OAuth2 Kullanıcı JSON içindeki kullanıcı kimliğine giden yol. ör .: user.id'
-    oauth2_json_username_path: 'OAuth2 Kullanıcı JSON içindeki kullanıcı adına giden yol. ör. kullanıcı.kullaniciadi'
+    oauth2_user_json_url: "OAuth2 için JSON kullanıcısını getirecek URL (not: değiştirdiğimiz: OAuth çağrısı tarafından döndürülen kimliğe sahip id ve: belirteç kimliğine sahip token)"
+    oauth2_user_json_url_method: "Kullanıcı JSON URL'sini getirmek için kullanılan yöntem"
+    oauth2_json_user_id_path: "OAuth2 Kullanıcı JSON içindeki kullanıcı kimliğine giden yol. ör .: user.id"
+    oauth2_json_username_path: "OAuth2 Kullanıcı JSON içindeki kullanıcı adına giden yol. ör. kullanıcı.kullaniciadi"
     oauth2_email_verified: "OAuth2 sitesi e-postayı doğruladıysa bunu kontrol edin"
     oauth2_debug_auth: "Günlüklerinize zengin hata ayıklama bilgileri ekleyin"
     oauth2_authorize_options: "Yetkilendirirken bu seçenekleri isteyin"
