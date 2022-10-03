@@ -165,7 +165,7 @@ describe OAuth2BasicAuthenticator do
         auth_result = nil
         expect {
           auth_result = authenticator.after_authenticate(auth)
-        }.to change { job_klass.jobs.count }.by(0)
+        }.not_to change { job_klass.jobs.count }
 
         expect {
           authenticator.after_create_account(user, auth_result)
