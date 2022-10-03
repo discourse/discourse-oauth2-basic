@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe OAuth2BasicAuthenticator do
-  context 'after_authenticate' do
+  describe 'after_authenticate' do
     let(:user) { Fabricate(:user) }
     let(:authenticator) { OAuth2BasicAuthenticator.new }
 
@@ -57,7 +57,7 @@ describe OAuth2BasicAuthenticator do
       expect(result.email_valid).to eq(false)
     end
 
-    context "fetch_user_details" do
+    describe "fetch_user_details" do
       before(:each) do
         SiteSetting.oauth2_fetch_user_details = true
         SiteSetting.oauth2_user_json_url = "https://provider.com/user"
@@ -126,7 +126,7 @@ describe OAuth2BasicAuthenticator do
       end
     end
 
-    context 'avatar downloading' do
+    describe 'avatar downloading' do
       before do
         SiteSetting.queue_jobs = true
         SiteSetting.oauth2_fetch_user_details = true
@@ -258,7 +258,7 @@ describe OAuth2BasicAuthenticator do
     expect(result).to eq 'http://example.com/1.png'
   end
 
-  context 'token_callback' do
+  describe 'token_callback' do
     let(:user) { Fabricate(:user) }
     let(:strategy) { OmniAuth::Strategies::Oauth2Basic.new({}) }
     let(:authenticator) { OAuth2BasicAuthenticator.new }
