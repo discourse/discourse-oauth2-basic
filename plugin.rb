@@ -123,15 +123,14 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
                           opts[:scope] = SiteSetting.oauth2_scope
                         end
 
-                        if SiteSetting.oauth2_debug_auth && defined? OAuth2FaradayFormatter
-                          opts[:client_options][:connection_build] = lambda { |builder|
+                        opts[:client_options][:connection_build] = lambda { |builder|
+                          if SiteSetting.oauth2_debug_auth && defined? OAuth2FaradayFormatter
                             builder.response :logger, Rails.logger, { bodies: true, formatter: OAuth2FaradayFormatter }
+                          end
 
-                            # Default stack:
-                            builder.request :url_encoded             # form-encode POST params
-                            builder.adapter Faraday.default_adapter  # make requests with Net::HTTP
-                          }
-                        end
+                          builder.request :url_encoded                      # form-encode POST params
+                          builder.adapter FinalDestination::FaradayAdapter  # make requests with FinalDestination::HTTP
+                        }
                       }
   end
 
@@ -206,16 +205,14 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
 
   def fetch_user_details(token, id)
     user_json_url = SiteSetting.oauth2_user_json_url.sub(':token', token.to_s).sub(':id', id.to_s)
-    user_json_method = SiteSetting.oauth2_user_json_url_method
+    user_json_method = SiteSetting.oauth2_user_json_url_method.downcase.to_sym
 
     log("user_json_url: #{user_json_method} #{user_json_url}")
 
     bearer_token = "Bearer #{token}"
-    connection = Excon.new(
-      user_json_url,
-      headers: { 'Authorization' => bearer_token, 'Accept' => 'application/json' }
-    )
-    user_json_response = connection.request(method: user_json_method)
+    connection = Faraday.new { |f| f.adapter FinalDestination::FaradayAdapter }
+    headers = { 'Authorization' => bearer_token, 'Accept' => 'application/json' }
+    user_json_response = connection.run_request(user_json_method, user_json_url, nil, headers)
 
     log("user_json_response: #{user_json_response.inspect}")
 
