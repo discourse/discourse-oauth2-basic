@@ -6,7 +6,9 @@ describe "OAuth2 Overrides Email", type: :request do
   fab!(:initial_email) { "initial@example.com" }
   fab!(:new_email) { "new@example.com" }
   fab!(:user) { Fabricate(:user, email: initial_email) }
-  fab!(:uac) { UserAssociatedAccount.create!(user: user, provider_name: "oauth2_basic", provider_uid: "12345") }
+  fab!(:uac) do
+    UserAssociatedAccount.create!(user: user, provider_name: "oauth2_basic", provider_uid: "12345")
+  end
 
   before do
     SiteSetting.oauth2_enabled = true
@@ -16,17 +18,13 @@ describe "OAuth2 Overrides Email", type: :request do
 
     OmniAuth.config.test_mode = true
     OmniAuth.config.mock_auth[:oauth2_basic] = OmniAuth::AuthHash.new(
-      provider: 'oauth2_basic',
-      uid: '12345',
-      info: OmniAuth::AuthHash::InfoHash.new(
-        email: new_email
-      ),
+      provider: "oauth2_basic",
+      uid: "12345",
+      info: OmniAuth::AuthHash::InfoHash.new(email: new_email),
       extra: {
-        raw_info: OmniAuth::AuthHash.new(
-          email_verified: true
-        )
+        raw_info: OmniAuth::AuthHash.new(email_verified: true),
       },
-      credentials: OmniAuth::AuthHash.new
+      credentials: OmniAuth::AuthHash.new,
     )
   end
 
@@ -40,7 +38,7 @@ describe "OAuth2 Overrides Email", type: :request do
     expect(user.reload.email).to eq(initial_email)
   end
 
-  it 'updates user email if enabled' do
+  it "updates user email if enabled" do
     SiteSetting.oauth2_overrides_email = true
 
     get "/auth/oauth2_basic/callback"
