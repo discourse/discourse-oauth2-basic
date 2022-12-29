@@ -13,19 +13,19 @@ class ::OmniAuth::Strategies::Oauth2Basic < ::OmniAuth::Strategies::OAuth2
   option :name, "oauth2_basic"
 
   uid do
-    if path = SiteSetting.oauth2_callback_user_id_path.split('.')
+    if path = SiteSetting.oauth2_callback_user_id_path.split(".")
       recurse(access_token, [*path]) if path.present?
     end
   end
 
   info do
-    if paths = SiteSetting.oauth2_callback_user_info_paths.split('|')
+    if paths = SiteSetting.oauth2_callback_user_info_paths.split("|")
       result = Hash.new
       paths.each do |p|
-        segments = p.split(':')
+        segments = p.split(":")
         if segments.length == 2
           key = segments.first
-          path = [*segments.last.split('.')]
+          path = [*segments.last.split(".")]
           result[key] = recurse(access_token, path)
         end
       end
@@ -45,7 +45,7 @@ class ::OmniAuth::Strategies::Oauth2Basic < ::OmniAuth::Strategies::OAuth2
   end
 end
 
-require 'faraday/logging/formatter'
+require "faraday/logging/formatter"
 class OAuth2FaradayFormatter < Faraday::Logging::Formatter
   def request(env)
     warn <<~LOG
@@ -76,7 +76,7 @@ DiscoursePluginRegistry.define_filtered_register :oauth2_basic_additional_json_p
 
 class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
   def name
-    'oauth2_basic'
+    "oauth2_basic"
   end
 
   def can_revoke?
@@ -90,52 +90,66 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
   def register_middleware(omniauth)
     omniauth.provider :oauth2_basic,
                       name: name,
-                      setup: lambda { |env|
-                        opts = env['omniauth.strategy'].options
-                        opts[:client_id] = SiteSetting.oauth2_client_id
-                        opts[:client_secret] = SiteSetting.oauth2_client_secret
-                        opts[:provider_ignores_state] = SiteSetting.oauth2_disable_csrf
-                        opts[:client_options] = {
-                          authorize_url: SiteSetting.oauth2_authorize_url,
-                          token_url: SiteSetting.oauth2_token_url,
-                          token_method: SiteSetting.oauth2_token_url_method.downcase.to_sym
-                        }
-                        opts[:authorize_options] = SiteSetting.oauth2_authorize_options.split("|").map(&:to_sym)
+                      setup:
+                        lambda { |env|
+                          opts = env["omniauth.strategy"].options
+                          opts[:client_id] = SiteSetting.oauth2_client_id
+                          opts[:client_secret] = SiteSetting.oauth2_client_secret
+                          opts[:provider_ignores_state] = SiteSetting.oauth2_disable_csrf
+                          opts[:client_options] = {
+                            authorize_url: SiteSetting.oauth2_authorize_url,
+                            token_url: SiteSetting.oauth2_token_url,
+                            token_method: SiteSetting.oauth2_token_url_method.downcase.to_sym,
+                          }
+                          opts[:authorize_options] = SiteSetting
+                            .oauth2_authorize_options
+                            .split("|")
+                            .map(&:to_sym)
 
-                        if SiteSetting.oauth2_authorize_signup_url.present? &&
-                            ActionDispatch::Request.new(env).params["signup"].present?
-                          opts[:client_options][:authorize_url] = SiteSetting.oauth2_authorize_signup_url
-                        end
-
-                        if SiteSetting.oauth2_send_auth_header? && SiteSetting.oauth2_send_auth_body?
-                          # For maximum compatibility we include both header and body auth by default
-                          # This is a little unusual, and utilising multiple authentication methods
-                          # is technically disallowed by the spec (RFC2749 Section 5.2)
-                          opts[:client_options][:auth_scheme] = :request_body
-                          opts[:token_params] = { headers: { 'Authorization' => basic_auth_header } }
-                        elsif SiteSetting.oauth2_send_auth_header?
-                          opts[:client_options][:auth_scheme] = :basic_auth
-                        else
-                          opts[:client_options][:auth_scheme] = :request_body
-                        end
-
-                        unless SiteSetting.oauth2_scope.blank?
-                          opts[:scope] = SiteSetting.oauth2_scope
-                        end
-
-                        opts[:client_options][:connection_build] = lambda { |builder|
-                          if SiteSetting.oauth2_debug_auth && defined? OAuth2FaradayFormatter
-                            builder.response :logger, Rails.logger, { bodies: true, formatter: OAuth2FaradayFormatter }
+                          if SiteSetting.oauth2_authorize_signup_url.present? &&
+                               ActionDispatch::Request.new(env).params["signup"].present?
+                            opts[:client_options][
+                              :authorize_url
+                            ] = SiteSetting.oauth2_authorize_signup_url
                           end
 
-                          builder.request :url_encoded                      # form-encode POST params
-                          builder.adapter FinalDestination::FaradayAdapter  # make requests with FinalDestination::HTTP
+                          if SiteSetting.oauth2_send_auth_header? &&
+                               SiteSetting.oauth2_send_auth_body?
+                            # For maximum compatibility we include both header and body auth by default
+                            # This is a little unusual, and utilising multiple authentication methods
+                            # is technically disallowed by the spec (RFC2749 Section 5.2)
+                            opts[:client_options][:auth_scheme] = :request_body
+                            opts[:token_params] = {
+                              headers: {
+                                "Authorization" => basic_auth_header,
+                              },
+                            }
+                          elsif SiteSetting.oauth2_send_auth_header?
+                            opts[:client_options][:auth_scheme] = :basic_auth
+                          else
+                            opts[:client_options][:auth_scheme] = :request_body
+                          end
+
+                          unless SiteSetting.oauth2_scope.blank?
+                            opts[:scope] = SiteSetting.oauth2_scope
+                          end
+
+                          opts[:client_options][:connection_build] = lambda do |builder|
+                            if SiteSetting.oauth2_debug_auth && defined?(OAuth2FaradayFormatter)
+                              builder.response :logger,
+                                               Rails.logger,
+                                               { bodies: true, formatter: OAuth2FaradayFormatter }
+                            end
+
+                            builder.request :url_encoded # form-encode POST params
+                            builder.adapter FinalDestination::FaradayAdapter # make requests with FinalDestination::HTTP
+                          end
                         }
-                      }
   end
 
   def basic_auth_header
-    "Basic " + Base64.strict_encode64("#{SiteSetting.oauth2_client_id}:#{SiteSetting.oauth2_client_secret}")
+    "Basic " +
+      Base64.strict_encode64("#{SiteSetting.oauth2_client_id}:#{SiteSetting.oauth2_client_secret}")
   end
 
   def walk_path(fragment, segments, seg_index = 0)
@@ -182,19 +196,21 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
     quoted = false
     escaped = false
 
-    path.split("").each do |char|
-      next_char_escaped = false
-      if !escaped && (char == '"')
-        quoted = !quoted
-      elsif !escaped && !quoted && (char == '.')
-        segments.append +""
-      elsif !escaped && (char == '\\')
-        next_char_escaped = true
-      else
-        segments.last << char
+    path
+      .split("")
+      .each do |char|
+        next_char_escaped = false
+        if !escaped && (char == '"')
+          quoted = !quoted
+        elsif !escaped && !quoted && (char == ".")
+          segments.append +""
+        elsif !escaped && (char == '\\')
+          next_char_escaped = true
+        else
+          segments.last << char
+        end
+        escaped = next_char_escaped
       end
-      escaped = next_char_escaped
-    end
 
     segments
   end
@@ -204,14 +220,14 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
   end
 
   def fetch_user_details(token, id)
-    user_json_url = SiteSetting.oauth2_user_json_url.sub(':token', token.to_s).sub(':id', id.to_s)
+    user_json_url = SiteSetting.oauth2_user_json_url.sub(":token", token.to_s).sub(":id", id.to_s)
     user_json_method = SiteSetting.oauth2_user_json_url_method.downcase.to_sym
 
     log("user_json_url: #{user_json_method} #{user_json_url}")
 
     bearer_token = "Bearer #{token}"
     connection = Faraday.new { |f| f.adapter FinalDestination::FaradayAdapter }
-    headers = { 'Authorization' => bearer_token, 'Accept' => 'application/json' }
+    headers = { "Authorization" => bearer_token, "Accept" => "application/json" }
     user_json_response = connection.run_request(user_json_method, user_json_url, nil, headers)
 
     log("user_json_response: #{user_json_response.inspect}")
@@ -243,7 +259,7 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
 
   def primary_email_verified?(auth)
     return true if SiteSetting.oauth2_email_verified
-    verified = auth['info']['email_verified']
+    verified = auth["info"]["email_verified"]
     verified = true if verified == "true"
     verified = false if verified == "false"
     verified
@@ -254,19 +270,25 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
   end
 
   def after_authenticate(auth, existing_account: nil)
-    log("after_authenticate response: \n\ncreds: #{auth['credentials'].to_hash}\nuid: #{auth['uid']}\ninfo: #{auth['info'].to_hash}\nextra: #{auth['extra'].to_hash}")
+    log(
+      "after_authenticate response: \n\ncreds: #{auth["credentials"].to_hash}\nuid: #{auth["uid"]}\ninfo: #{auth["info"].to_hash}\nextra: #{auth["extra"].to_hash}",
+    )
 
     if SiteSetting.oauth2_fetch_user_details?
-      if fetched_user_details = fetch_user_details(auth['credentials']['token'], auth['uid'])
-        auth['uid'] = fetched_user_details[:user_id] if fetched_user_details[:user_id]
-        auth['info']['nickname'] = fetched_user_details[:username] if fetched_user_details[:username]
-        auth['info']['image'] = fetched_user_details[:avatar] if fetched_user_details[:avatar]
-        ['name', 'email', 'email_verified'].each do |property|
-          auth['info'][property] = fetched_user_details[property.to_sym] if fetched_user_details[property.to_sym]
+      if fetched_user_details = fetch_user_details(auth["credentials"]["token"], auth["uid"])
+        auth["uid"] = fetched_user_details[:user_id] if fetched_user_details[:user_id]
+        auth["info"]["nickname"] = fetched_user_details[:username] if fetched_user_details[
+          :username
+        ]
+        auth["info"]["image"] = fetched_user_details[:avatar] if fetched_user_details[:avatar]
+        %w[name email email_verified].each do |property|
+          auth["info"][property] = fetched_user_details[property.to_sym] if fetched_user_details[
+            property.to_sym
+          ]
         end
 
         DiscoursePluginRegistry.oauth2_basic_additional_json_paths.each do |detail|
-          auth['extra'][detail] = fetched_user_details["extra:#{detail}"]
+          auth["extra"][detail] = fetched_user_details["extra:#{detail}"]
         end
       else
         result = Auth::Result.new
@@ -284,7 +306,9 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
   end
 end
 
-auth_provider title_setting: "oauth2_button_title",
-              authenticator: OAuth2BasicAuthenticator.new
+auth_provider title_setting: "oauth2_button_title", authenticator: OAuth2BasicAuthenticator.new
 
-load File.expand_path("../lib/validators/oauth2_basic/oauth2_fetch_user_details_validator.rb", __FILE__)
+load File.expand_path(
+       "../lib/validators/oauth2_basic/oauth2_fetch_user_details_validator.rb",
+       __FILE__,
+     )
