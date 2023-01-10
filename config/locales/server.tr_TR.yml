@@ -12,6 +12,7 @@ tr_TR:
     oauth2_client_id: "Özel OAuth2 için müşteri kimliği"
     oauth2_client_secret: "Özel OAuth2 için Sırrı İstemci "
     oauth2_authorize_url: "OAuth2 için yetkilendirme URL&#39;si"
+    oauth2_authorize_signup_url: '(isteğe bağlı) "Kaydol" düğmesi kullanıldığında kullanılan alternatif yetkilendirme URL''si'
     oauth2_token_url: "OAuth2 için Token URL"
     oauth2_token_url_method: "Token URL'sini getirmek için kullanılan yöntem"
     oauth2_callback_user_id_path: "Token yanıtındaki kullanıcı kimliğine giden yol. örneğin: params.info.uuid"
@@ -21,11 +22,19 @@ tr_TR:
     oauth2_user_json_url_method: "Kullanıcı JSON URL'sini getirmek için kullanılan yöntem"
     oauth2_json_user_id_path: "OAuth2 Kullanıcı JSON içindeki kullanıcı kimliğine giden yol. ör .: user.id"
     oauth2_json_username_path: "OAuth2 Kullanıcı JSON içindeki kullanıcı adına giden yol. ör. kullanıcı.kullaniciadi"
+    oauth2_json_name_path: "OAuth2 Kullanıcı JSON'unda kullanıcının tam adına giden yol. ör.: user.name.full"
+    oauth2_json_email_path: "OAuth2 Kullanıcı JSON'unda kullanıcının e-postasına giden yol. ör.: user.email"
+    oauth2_json_email_verified_path: "OAuth2 Kullanıcı JSON'unda kullanıcının e-posta doğrulama durumuna giden yol. ör.: user.email.verified. oauth2_email_verified, bu ayarın herhangi bir etkiye sahip olması için devre dışı bırakılmalıdır"
+    oauth2_json_avatar_path: "Oauth2 Kullanıcı JSON'unda kullanıcının avatarına giden yol. ör.: user.avatar_url"
     oauth2_email_verified: "OAuth2 sitesi e-postayı doğruladıysa bunu kontrol edin"
+    oauth2_overrides_email: "Her oturum açma işleminde Discourse e-postasını uzak e-posta ile geçersiz kılın. \"auth_overrides_email\" ayarı ile aynı şekilde çalışır, ancak OAuth2 girişlerine özeldir."
+    oauth2_send_auth_header: "İstemci kimlik bilgilerini HTTP Yetkilendirme üstbilgisinde gönderin"
+    oauth2_send_auth_body: "İstemci kimlik bilgilerini talep gövdesinde gönderin"
     oauth2_debug_auth: "Günlüklerinize zengin hata ayıklama bilgileri ekleyin"
     oauth2_authorize_options: "Yetkilendirirken bu seçenekleri isteyin"
     oauth2_scope: "Yetkilendirirken bu kapsamı isteyin"
     oauth2_button_title: "OAuth2 düğmesinin metni"
     oauth2_allow_association_change: Kullanıcıların Discourse hesaplarının OAuth2 sağlayıcısıyla bağlantısını kesmesine ve yeniden bağlanmasına izin ver
+    oauth2_disable_csrf: "CSRF kontrolünü devre dışı bırak"
     errors:
       oauth2_fetch_user_details: "oauth2_fetch_user_details işlevini devre dışı bırakmak için oauth2_callback_user_id_path bulunmalıdır"
