@@ -292,6 +292,9 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
 
       extra:
       #{auth["extra"].to_hash.to_yaml}
+
+      all:
+      #{auth&.to_hash&.to_yaml}
     LOG
 
     if SiteSetting.oauth2_fetch_user_details?
