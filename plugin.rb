@@ -121,9 +121,10 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
                             opts[:client_options][:auth_scheme] = :request_body
                             opts[:token_params] = {
                               headers: {
-                                "Authorization" => basic_auth_header,
+                                "Authorization" => basic_auth_header
                               },
                             }
+                            opts[:token_params][:headers]["Content-Type"] = "application/json" if SiteSetting.oauth2_token_request_encoding == "json"
                           elsif SiteSetting.oauth2_send_auth_header?
                             opts[:client_options][:auth_scheme] = :basic_auth
                           else
@@ -141,7 +142,8 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
                                                { bodies: true, formatter: OAuth2FaradayFormatter }
                             end
 
-                            builder.request :url_encoded # form-encode POST params
+                            encoding = SiteSetting.oauth2_token_request_encoding == "form_encoded" ? :url_encoded : :json
+                            builder.request encoding
                             builder.adapter FinalDestination::FaradayAdapter # make requests with FinalDestination::HTTP
                           end
                         }

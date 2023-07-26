@@ -7,6 +7,12 @@ login:
   oauth2_authorize_url: ""
   oauth2_authorize_signup_url: ""
   oauth2_token_url: ""
+  oauth2_token_request_encoding:
+    default: "form_encoded"
+    type: enum
+    choices:
+      - form_encoded
+      - json
   oauth2_token_url_method:
     default: "POST"
     type: enum
