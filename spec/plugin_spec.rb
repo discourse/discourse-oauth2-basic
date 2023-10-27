@@ -128,7 +128,7 @@ describe OAuth2BasicAuthenticator do
 
     describe "avatar downloading" do
       before do
-        SiteSetting.queue_jobs = true
+        Jobs.run_later!
         SiteSetting.oauth2_fetch_user_details = true
         SiteSetting.oauth2_email_verified = true
       end
