@@ -52,9 +52,11 @@ class OAuth2FaradayFormatter < Faraday::Logging::Formatter
     warn <<~LOG
       OAuth2 Debugging: request #{env.method.upcase} #{env.url.to_s}
 
-      Headers: #{env.request_headers}
+      Headers:
+      #{env.request_headers.to_yaml}
 
-      Body: #{env[:body]}
+      Body:
+      #{env[:body].to_yaml}
     LOG
   end
 
@@ -64,9 +66,11 @@ class OAuth2FaradayFormatter < Faraday::Logging::Formatter
 
       From #{env.method.upcase} #{env.url.to_s}
 
-      Headers: #{env.response_headers}
+      Headers:
+      #{env.request_headers.to_yaml}
 
-      Body: #{env[:body]}
+      Body:
+      #{env[:body].to_yaml}
     LOG
   end
 end
@@ -224,19 +228,22 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
     user_json_url = SiteSetting.oauth2_user_json_url.sub(":token", token.to_s).sub(":id", id.to_s)
     user_json_method = SiteSetting.oauth2_user_json_url_method.downcase.to_sym
 
-    log("user_json_url: #{user_json_method} #{user_json_url}")
-
     bearer_token = "Bearer #{token}"
     connection = Faraday.new { |f| f.adapter FinalDestination::FaradayAdapter }
     headers = { "Authorization" => bearer_token, "Accept" => "application/json" }
     user_json_response = connection.run_request(user_json_method, user_json_url, nil, headers)
 
-    log("user_json_response: #{user_json_response.inspect}")
+    log <<-LOG
+      user_json request: #{user_json_method} #{user_json_url}
+
+      response:
+      #{user_json_response.to_yaml}
+    LOG
 
     if user_json_response.status == 200
       user_json = JSON.parse(user_json_response.body)
 
-      log("user_json: #{user_json}")
+      log("user_json:\n#{user_json.to_yaml}")
 
       result = {}
       if user_json.present?
@@ -271,9 +278,20 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
   end
 
   def after_authenticate(auth, existing_account: nil)
-    log(
-      "after_authenticate response: \n\ncreds: #{auth["credentials"].to_hash}\nuid: #{auth["uid"]}\ninfo: #{auth["info"].to_hash}\nextra: #{auth["extra"].to_hash}",
-    )
+    log <<-LOG
+      after_authenticate response:
+
+      creds:
+      #{auth["credentials"].to_hash.to_yaml}
+
+      uid: #{auth["uid"]}
+
+      info:
+      #{auth["info"].to_hash.to_yaml}
+
+      extra:
+      #{auth["extra"].to_hash.to_yaml}
+    LOG
 
     if SiteSetting.oauth2_fetch_user_details?
       if fetched_user_details = fetch_user_details(auth["credentials"]["token"], auth["uid"])
