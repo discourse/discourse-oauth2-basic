@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # name: discourse-oauth2-basic
-# about: Allows users to login to your forum using a basic OAuth2 provider. 
+# about: Allows users to login to your forum using a basic OAuth2 provider.
 # meta_topic_id: 33879
 # version: 0.3
 # authors: Robin Ward
@@ -50,7 +50,7 @@ require "faraday/logging/formatter"
 class OAuth2FaradayFormatter < Faraday::Logging::Formatter
   def request(env)
     warn <<~LOG
-      OAuth2 Debugging: request #{env.method.upcase} #{env.url.to_s}
+      OAuth2 Debugging: request #{env.method.upcase} #{env.url}
 
       Headers:
       #{env.request_headers.to_yaml}
@@ -64,7 +64,7 @@ class OAuth2FaradayFormatter < Faraday::Logging::Formatter
     warn <<~LOG
       OAuth2 Debugging: response status #{env.status}
 
-      From #{env.method.upcase} #{env.url.to_s}
+      From #{env.method.upcase} #{env.url}
 
       Headers:
       #{env.request_headers.to_yaml}
@@ -236,8 +236,12 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
     log <<-LOG
       user_json request: #{user_json_method} #{user_json_url}
 
-      response:
-      #{user_json_response.to_yaml}
+      request headers: #{headers}
+
+      response status: #{user_json_response.status}
+
+      response body:
+      #{user_json_response.body}
     LOG
 
     if user_json_response.status == 200
