@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # name: discourse-oauth2-basic
-# about: Allows users to login to your forum using a basic OAuth2 provider. 
+# about: Allows users to login to your forum using a basic OAuth2 provider.
 # meta_topic_id: 33879
 # version: 0.3
 # authors: Robin Ward
@@ -231,7 +231,7 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
     headers = { "Authorization" => bearer_token, "Accept" => "application/json" }
     user_json_response = connection.run_request(user_json_method, user_json_url, nil, headers)
 
-    log("user_json_response: #{user_json_response.inspect}")
+    log("user_json_response: (#{user_json_response.status}) #{user_json_response.inspect}")
 
     if user_json_response.status == 200
       user_json = JSON.parse(user_json_response.body)
