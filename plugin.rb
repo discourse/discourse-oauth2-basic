@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # name: discourse-oauth2-basic
-# about: Allows users to login to your forum using a basic OAuth2 provider. 
+# about: Allows users to login to your forum using a basic OAuth2 provider.
 # meta_topic_id: 33879
 # version: 0.3
 # authors: Robin Ward
