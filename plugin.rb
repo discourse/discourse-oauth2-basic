@@ -6,7 +6,6 @@
 # version: 0.3
 # authors: Robin Ward
 # url: https://github.com/discourse/discourse-oauth2-basic
-# transpile_js: true
 
 enabled_site_setting :oauth2_enabled
 

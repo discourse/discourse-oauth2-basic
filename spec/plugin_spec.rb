@@ -74,9 +74,7 @@ describe OAuth2BasicAuthenticator do
         { status: 200, body: '{"account":{"email":"newemail@example.com"}}' }
       end
 
-      let (:fail_response) do
-        { status: 403 }
-      end
+      let(:fail_response) { { status: 403 } }
 
       it "works" do
         stub_request(:get, SiteSetting.oauth2_user_json_url).to_return(success_response)
