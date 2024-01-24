@@ -13,6 +13,7 @@ login:
     choices:
       - GET
       - POST
+      - PUT
   oauth2_callback_user_id_path: ""
   oauth2_callback_user_info_paths:
     type: list
