@@ -296,7 +296,7 @@ class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
       #{auth["extra"].to_hash.to_yaml}
     LOG
 
-    if SiteSetting.oauth2_fetch_user_details?
+    if SiteSetting.oauth2_fetch_user_details? && SiteSetting.oauth2_user_json_url.present?
       if fetched_user_details = fetch_user_details(auth["credentials"]["token"], auth["uid"])
         auth["uid"] = fetched_user_details[:user_id] if fetched_user_details[:user_id]
         auth["info"]["nickname"] = fetched_user_details[:username] if fetched_user_details[
