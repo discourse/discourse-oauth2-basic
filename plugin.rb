@@ -78,10 +78,16 @@ end
 # We'll store the value in the user associated account's extra attribute hash using the full path as the key.
 DiscoursePluginRegistry.define_filtered_register :oauth2_basic_additional_json_paths
 
-# After authentication, we'll use this to confirm that the registered json paths are fulfilled,
-# or display an error message to the user.
+# After authentication, we'll use this to confirm that the registered json paths are fulfilled, or display an error.
 # This requires SiteSetting.oauth2_fetch_user_details? to be true, and can be used with
 # DiscoursePluginRegistry.oauth2_basic_additional_json_paths.
+#
+# Example usage:
+# DiscoursePluginRegistry.register_oauth2_basic_required_json_path({
+#   path: "extra:data.is_allowed_user",
+#   required_value: true,
+#   error_message: I18n.t("auth.user_not_allowed")
+# }, self)
 DiscoursePluginRegistry.define_filtered_register :oauth2_basic_required_json_paths
 
 class ::OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
