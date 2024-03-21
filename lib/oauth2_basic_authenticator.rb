@@ -84,7 +84,7 @@ class OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
     return nil unless fragment.is_a?(Hash) || fragment.is_a?(Array)
     first_seg = segments[seg_index].scan(/([\d+])/).length > 0 ? first_seg.split("[")[0] : first_seg
     if fragment.is_a?(Hash)
-      deref = fragment.key?(first_seg) ? fragment[first_seg] : fragment[first_seg.to_sym]
+      deref = fragment[first_seg]
     else
       array_index = 0
       if (seg_index > 0)
