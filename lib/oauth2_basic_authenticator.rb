@@ -114,7 +114,7 @@ class OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
       segments = parse_segments(path)
       val = walk_path(user_json, segments)
       # [] should be nil, false should be false
-      result[prop] = val.blank? ? (val == [] ? nil : val) : val
+      result[prop] = val.presence || (val == [] ? nil : val)
     end
   end
 
