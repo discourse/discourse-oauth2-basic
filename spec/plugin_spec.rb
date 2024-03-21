@@ -312,6 +312,21 @@ describe OAuth2BasicAuthenticator do
     expect(result).to eq "http://example.com/1.png"
   end
 
+  it "can walk json and appropriately assign a `false`" do
+    authenticator = OAuth2BasicAuthenticator.new
+    json_string = '{"user":{"id":1234, "data": {"address":"test@example.com", "is_cat": false}}}'
+    SiteSetting.oauth2_json_email_verified_path = "user.data.is_cat"
+    result =
+      authenticator.json_walk(
+        {},
+        JSON.parse(json_string),
+        "extra:user.data.is_cat",
+        custom_path: "user.data.is_cat",
+      )
+
+    expect(result).to eq false
+  end
+
   describe "token_callback" do
     let(:user) { Fabricate(:user) }
     let(:strategy) { OmniAuth::Strategies::Oauth2Basic.new({}) }
