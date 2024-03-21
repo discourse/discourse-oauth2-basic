@@ -84,7 +84,7 @@ class OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
     return nil unless fragment.is_a?(Hash) || fragment.is_a?(Array)
     first_seg = segments[seg_index].scan(/([\d+])/).length > 0 ? first_seg.split("[")[0] : first_seg
     if fragment.is_a?(Hash)
-      deref = fragment[first_seg] || fragment[first_seg.to_sym]
+      deref = fragment.key?(first_seg) ? fragment[first_seg] : fragment[first_seg.to_sym]
     else
       array_index = 0
       if (seg_index > 0)
@@ -98,7 +98,7 @@ class OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
       end
     end
 
-    if (deref.blank? || seg_index == segments.size - 1)
+    if deref.blank? || seg_index == segments.size - 1
       deref
     else
       seg_index += 1
@@ -113,7 +113,8 @@ class OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
       path = path.gsub(".[].", ".").gsub(".[", "[")
       segments = parse_segments(path)
       val = walk_path(user_json, segments)
-      result[prop] = val if val.present?
+      # [] should be nil, false should be false
+      result[prop] = val.blank? ? (val == [] ? nil : val) : val
     end
   end
 
