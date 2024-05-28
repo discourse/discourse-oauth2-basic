@@ -56,7 +56,7 @@ class OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
                             opts[:client_options][:auth_scheme] = :request_body
                           end
 
-                          unless SiteSetting.oauth2_scope.blank?
+                          if SiteSetting.oauth2_scope.present?
                             opts[:scope] = SiteSetting.oauth2_scope
                           end
 
