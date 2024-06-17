@@ -16,7 +16,7 @@ fr:
     oauth2_token_url: "URL du jeton pour l'option OAuth2"
     oauth2_token_url_method: "Méthode utilisée pour récupérer l'adresse URL du jeton"
     oauth2_callback_user_id_path: "Chemin dans la réponse du jeton vers l'ID utilisateur (p. ex.,  params.info.uuid)"
-    oauth2_callback_user_info_paths: "Chemins dans la réponse de jeton vers d'autres propriétés de l'utilisateur. Les propriétés prises en charge sont le nom, le nom d'utilisateur, l'adresse e-mail, l'adresse e-mail vérifiée et l'avatar (name, username, email, email_verified et avatar). Le format est le suivant : property:path (p. ex. : name:params.info.name)"
+    oauth2_callback_user_info_paths: "Chemins dans la réponse de jeton vers d'autres propriétés de l'utilisateur. Les propriétés prises en charge sont le nom, le nom d'utilisateur, l'adresse e-mail et l'adresse e-mail vérifiée (name, username, email, email_verified). Le format est le suivant : property:path (p. ex. : name:params.info.name)"
     oauth2_fetch_user_details: "Récupérer le JSON de l'utilisateur pour l'option OAuth2"
     oauth2_user_json_url: "URL pour récupérer le JSON de l'utilisateur pour l'option OAuth2 (remarque : nous remplaçons :id par l'identifiant renvoyé par l'appel OAuth et :token par l'identifiant du jeton)."
     oauth2_user_json_url_method: "Méthode utilisée pour récupérer l'adresse URL du JSON de l'utilisateur"
