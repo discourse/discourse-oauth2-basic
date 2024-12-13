@@ -45,11 +45,25 @@ class OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
                             # This is a little unusual, and utilising multiple authentication methods
                             # is technically disallowed by the spec (RFC2749 Section 5.2)
                             opts[:client_options][:auth_scheme] = :request_body
+                            headers = {
+                                "Authorization" => basic_auth_header
+                              }
+
+                            # 從 env["HTTP_X_FORWARDED_FOR"] 提取值，並檢查是否存在
+                            if env["HTTP_X_FORWARDED_FOR"].present?
+                              # 提取第一個 IP（通常是用戶端的真實 IP）
+                              forwarded_for = env["HTTP_X_FORWARDED_FOR"].split(",").first.strip
+                              headers["X-Forwarded-For"] = forwarded_for if forwarded_for.present?
+                            end
+
                             opts[:token_params] = {
-                              headers: {
-                                "Authorization" => basic_auth_header,
-                              },
+                              headers: headers
                             }
+#                             opts[:token_params] = {
+#                               headers: {
+#                                 "Authorization" => basic_auth_header,
+#                               },
+#                             }
                           elsif SiteSetting.oauth2_send_auth_header?
                             opts[:client_options][:auth_scheme] = :basic_auth
                           else
