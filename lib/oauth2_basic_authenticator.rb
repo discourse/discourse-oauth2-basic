@@ -233,13 +233,17 @@ class OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
       #{auth["extra"].to_hash.to_yaml}
     LOG
 
-    access_token = auth["credentials"]["token"]
-    refresh_token = auth["credentials"]["refresh_token"]
-    expires_at = auth["credentials"]["expires_at"]
+    user = existing_account || User.find_by_email(auth["info"]["email"])
 
-    session[:oauth_access_token] = access_token
-    session[:oauth_refresh_token] = refresh_token
-    session[:oauth_expires_at] = expires_at
+    if user
+      user.custom_fields["oauth_access_token"] = auth["credentials"]["token"]
+      user.custom_fields["oauth_refresh_token"] = auth["credentials"]["refresh_token"]
+      user.custom_fields["oauth_expires_at"] = auth["credentials"]["expires_at"]
+      user.save_custom_fields
+      log <<-LOG
+        ouath token stored in custom_fields
+      LOG
+    end
 
     if SiteSetting.oauth2_fetch_user_details? && SiteSetting.oauth2_user_json_url.present?
       if fetched_user_details = fetch_user_details(auth["credentials"]["token"], auth["uid"])
