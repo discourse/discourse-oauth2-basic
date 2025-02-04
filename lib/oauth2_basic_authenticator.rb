@@ -233,6 +233,14 @@ class OAuth2BasicAuthenticator < Auth::ManagedAuthenticator
       #{auth["extra"].to_hash.to_yaml}
     LOG
 
+    access_token = auth["credentials"]["token"]
+    refresh_token = auth["credentials"]["refresh_token"]
+    expires_at = auth["credentials"]["expires_at"]
+
+    session[:oauth_access_token] = access_token
+    session[:oauth_refresh_token] = refresh_token
+    session[:oauth_expires_at] = expires_at
+
     if SiteSetting.oauth2_fetch_user_details? && SiteSetting.oauth2_user_json_url.present?
       if fetched_user_details = fetch_user_details(auth["credentials"]["token"], auth["uid"])
         auth["uid"] = fetched_user_details[:user_id] if fetched_user_details[:user_id]
