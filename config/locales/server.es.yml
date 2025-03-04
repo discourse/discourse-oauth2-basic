@@ -1,9 +1,3 @@
-# WARNING: Never edit this file.
-# It will be overwritten when translations are pulled from Crowdin.
-#
-# To work with us on translations, join this project:
-# https://translate.discourse.org/
-
 es:
   login:
     authenticator_error_fetch_user_details: "No se pudieron recuperar tus datos de usuario. ¿Tienes una cuenta activa?"

@@ -1,9 +1,3 @@
-# WARNING: Never edit this file.
-# It will be overwritten when translations are pulled from Crowdin.
-#
-# To work with us on translations, join this project:
-# https://translate.discourse.org/
-
 ru:
   login:
     authenticator_error_fetch_user_details: "Не удалось получить данные пользователя. У вас есть активный аккаунт?"

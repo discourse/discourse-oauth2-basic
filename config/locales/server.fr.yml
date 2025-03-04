@@ -1,9 +1,3 @@
-# WARNING: Never edit this file.
-# It will be overwritten when translations are pulled from Crowdin.
-#
-# To work with us on translations, join this project:
-# https://translate.discourse.org/
-
 fr:
   login:
     authenticator_error_fetch_user_details: "Impossible de récupérer vos informations d'utilisateur. Avez-vous un compte actif ?"

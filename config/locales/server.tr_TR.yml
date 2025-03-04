@@ -1,10 +1,4 @@
-# WARNING: Never edit this file.
-# It will be overwritten when translations are pulled from Crowdin.
-#
-# To work with us on translations, join this project:
-# https://translate.discourse.org/
-
-tr_TR:
+tr:
   login:
     authenticator_error_fetch_user_details: "Kullanıcı ayrıntılarınız görüntülenemedi. Aktif bir hesabınız var mı?"
   site_settings:

@@ -1,10 +1,4 @@
-# WARNING: Never edit this file.
-# It will be overwritten when translations are pulled from Crowdin.
-#
-# To work with us on translations, join this project:
-# https://translate.discourse.org/
-
-pl_PL:
+pl:
   login:
     authenticator_error_fetch_user_details: "Nie mogliśmy odnaleźć informacji o Twoim użytkowniku. Czy Twoje konto jest aktywne?"
   site_settings:

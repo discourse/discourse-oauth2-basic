@@ -1,9 +1,3 @@
-# WARNING: Never edit this file.
-# It will be overwritten when translations are pulled from Crowdin.
-#
-# To work with us on translations, join this project:
-# https://translate.discourse.org/
-
 sv:
   login:
     authenticator_error_fetch_user_details: "Det gick inte att hämta dina användaruppgifter. Har du ett aktivt konto?"

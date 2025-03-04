@@ -1,9 +1,3 @@
-# WARNING: Never edit this file.
-# It will be overwritten when translations are pulled from Crowdin.
-#
-# To work with us on translations, join this project:
-# https://translate.discourse.org/
-
 ur:
   login:
     authenticator_error_fetch_user_details: "آپ کی صارف تفصیلات کو حاصل نہیں کیا جا سکا۔ کیا آپ کے پاس ایک فعال اکاؤنٹ ہے؟"
