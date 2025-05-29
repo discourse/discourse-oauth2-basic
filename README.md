@@ -23,7 +23,7 @@ Replace `DISCOURSE_HOST` with the appropriate value, and make sure you are
 using `https` if enabled. The OAuth2 provider should supply you with a
 client ID and secret, as well as a couple of URLs.
 
-Visit your **Admin** > **Settings** > **Login** and fill in the basic
+Visit your **Admin** > **Settings** > **OAuth2 Login** and fill in the basic
 configuration for the OAuth2 provider:
 
 - `oauth2_enabled` - check this off to enable the feature
