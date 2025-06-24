@@ -5,3 +5,5 @@
 # https://translate.discourse.org/
 
 el:
+  site_settings:
+    oauth2_disable_csrf: "Απενεργοποίηση ελέγχου CSRF"
