@@ -1,5 +1,8 @@
 ## discourse-oauth2-basic
 
+> [!IMPORTANT]
+> This plugin has now been bundled into Discourse core. See: https://meta.discourse.org/t/bundling-more-popular-plugins-with-discourse-core/373574
+
 This plugin allows you to use a basic OAuth2 provider as authentication for
 Discourse. It should work with many providers, with the caveat that they
 must provide a JSON endpoint for retrieving information about the user
